@@ -5,10 +5,15 @@ erDiagram
         VARCHAR first_name
         VARCHAR last_name
         VARCHAR email UK
-        VARCHAR password_hash
     }
 
     rooms {
+        BIGINT id PK
+        VARCHAR room_nr
+        BIGINT room_type_id FK
+    }
+
+    room_types {
         BIGINT id PK
         VARCHAR title
         TEXT description
@@ -29,19 +34,17 @@ erDiagram
     bookings {
         BIGINT id PK
         BIGINT room_id FK
-        BIGINT guest_id FK "nullable"
+        BIGINT guest_id FK
         DATE check_in
         DATE check_out
-        VARCHAR first_name
-        VARCHAR last_name
-        VARCHAR email
         BOOLEAN breakfast
         ENUM status
         DATETIME created_at
     }
 
     rooms ||--o{ room_extras : "has"
+    rooms }o--|| room_types : "has"
     extras ||--o{ room_extras : "belongs to"
     rooms ||--o{ bookings : "booked via"
-    guests |o--o{ bookings : "makes"
+    guests ||--o{ bookings : "makes"
 ```
