@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface RoomTypeRepository extends JpaRepository<RoomType, Integer> {
-    @EntityGraph(attributePaths = {"room", "roomExtras"})
+    @EntityGraph(attributePaths = {"rooms", "roomExtras"})
     Page<RoomType> findAllBy(Pageable pageable);
 
-    @EntityGraph(attributePaths = {"room", "roomExtras"})
+    @EntityGraph(attributePaths = {"rooms", "roomExtras"})
     Optional<RoomType> findWithRoomAndRoomExtrasById(Integer id);
 }

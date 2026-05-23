@@ -26,7 +26,7 @@ public class RoomType {
 
     @Getter
     @OneToMany(mappedBy = "roomType")
-    private Set<Room> room;
+    private Set<Room> rooms;
 
     @Getter
     @ManyToMany
