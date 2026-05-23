@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class RoomDataService {
+public class RoomTypeService {
     private final RoomTypeRepository roomTypeRepository;
     private final RoomTypeMapper roomTypeMapper;
 
-    public RoomDataService(RoomTypeRepository roomTypeRepository, RoomTypeMapper roomTypeMapper) {
+    public RoomTypeService(RoomTypeRepository roomTypeRepository, RoomTypeMapper roomTypeMapper) {
         this.roomTypeRepository = roomTypeRepository;
         this.roomTypeMapper = roomTypeMapper;
     }
