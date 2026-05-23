@@ -8,6 +8,7 @@ import lombok.Getter;
 public class Room {
     @Getter
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
