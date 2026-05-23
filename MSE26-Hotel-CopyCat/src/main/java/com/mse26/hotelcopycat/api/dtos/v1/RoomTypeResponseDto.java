@@ -1,4 +1,4 @@
-package com.mse26.hotelcopycat.Dto;
+package com.mse26.hotelcopycat.api.dtos.v1;
 
 import lombok.Builder;
 import lombok.Value;

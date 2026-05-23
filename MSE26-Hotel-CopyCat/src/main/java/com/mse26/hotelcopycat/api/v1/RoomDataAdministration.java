@@ -1,6 +1,8 @@
-package com.mse26.hotelcopycat.Controller;
-import com.mse26.hotelcopycat.Dto.RoomTypeResponseDto;
+package com.mse26.hotelcopycat.api.v1;
+
+import com.mse26.hotelcopycat.api.dtos.v1.RoomTypeResponseDto;
 import com.mse26.hotelcopycat.Service.RoomDataService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
-import org.springframework.data.domain.Page;
 
 @RestController
-@RequestMapping("/room-types")
+@RequestMapping("/api/v1/room-types")
 public class RoomDataAdministration {
     private final RoomDataService service;
 

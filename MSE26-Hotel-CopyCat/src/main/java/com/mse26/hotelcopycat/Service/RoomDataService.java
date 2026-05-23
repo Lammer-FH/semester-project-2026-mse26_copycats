@@ -1,5 +1,5 @@
 package com.mse26.hotelcopycat.Service;
-import com.mse26.hotelcopycat.Dto.RoomTypeResponseDto;
+import com.mse26.hotelcopycat.api.dtos.v1.RoomTypeResponseDto;
 import com.mse26.hotelcopycat.Mapper.RoomTypeMapper;
 import com.mse26.hotelcopycat.Repository.RoomTypeRepository;
 import org.springframework.data.domain.Page;

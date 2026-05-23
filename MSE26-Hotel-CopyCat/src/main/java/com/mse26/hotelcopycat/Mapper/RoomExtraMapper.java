@@ -1,6 +1,6 @@
 package com.mse26.hotelcopycat.Mapper;
 
-import com.mse26.hotelcopycat.Dto.RoomExtraResponseDto;
+import com.mse26.hotelcopycat.api.dtos.v1.RoomExtraResponseDto;
 import com.mse26.hotelcopycat.Model.RoomExtras;
 import org.springframework.stereotype.Component;
 
