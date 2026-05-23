@@ -1,7 +1,6 @@
 package com.mse26.hotelcopycat.Controller;
-import com.mse26.hotelcopycat.Model.RoomType;
+import com.mse26.hotelcopycat.Dto.RoomTypeResponseDto;
 import com.mse26.hotelcopycat.Service.RoomDataService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import org.springframework.data.domain.Page;
 
 @RestController
 @RequestMapping("/room-types")
@@ -23,7 +23,7 @@ public class RoomDataAdministration {
     }
 
     @GetMapping
-    public Page<RoomType> getAllRoomTypes(
+    public Page<RoomTypeResponseDto> getAllRoomTypes(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "id") String sortBy,
@@ -34,7 +34,7 @@ public class RoomDataAdministration {
     }
 
     @GetMapping("/{id}")
-    public Optional<RoomType> getRoomTypeById(@PathVariable int id) {
+    public Optional<RoomTypeResponseDto> getRoomTypeById(@PathVariable int id) {
         return service.findById(id);
     }
 }

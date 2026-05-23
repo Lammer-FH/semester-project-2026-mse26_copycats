@@ -1,5 +1,6 @@
 package com.mse26.hotelcopycat.Service;
-import com.mse26.hotelcopycat.Model.RoomType;
+import com.mse26.hotelcopycat.Dto.RoomTypeResponseDto;
+import com.mse26.hotelcopycat.Mapper.RoomTypeMapper;
 import com.mse26.hotelcopycat.Repository.RoomTypeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,16 +11,18 @@ import java.util.Optional;
 @Service
 public class RoomDataService {
     private final RoomTypeRepository roomTypeRepository;
+    private final RoomTypeMapper roomTypeMapper;
 
-    public RoomDataService(RoomTypeRepository roomTypeRepository) {
+    public RoomDataService(RoomTypeRepository roomTypeRepository, RoomTypeMapper roomTypeMapper) {
         this.roomTypeRepository = roomTypeRepository;
+        this.roomTypeMapper = roomTypeMapper;
     }
 
-    public Page<RoomType> findAll(Pageable pageable){
-        return roomTypeRepository.findAllBy(pageable);
+    public Page<RoomTypeResponseDto> findAll(Pageable pageable){
+        return roomTypeRepository.findAllBy(pageable).map(roomTypeMapper::toResponseDto);
     }
 
-    public Optional<RoomType> findById(int id){
-        return roomTypeRepository.findWithRoomAndRoomExtrasById(id);
+    public Optional<RoomTypeResponseDto> findById(int id){
+        return roomTypeRepository.findWithRoomAndRoomExtrasById(id).map(roomTypeMapper::toResponseDto);
     }
 }
