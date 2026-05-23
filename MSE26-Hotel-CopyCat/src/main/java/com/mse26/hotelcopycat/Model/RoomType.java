@@ -4,7 +4,8 @@ import lombok.Getter;
 
 import java.util.Set;
 
-@Entity(name = "room_types")
+@Entity
+@Table(name = "room_types")
 public class RoomType {
     @Getter
     @Id

@@ -1,14 +1,12 @@
 package com.mse26.hotelcopycat.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.Set;
 
-@Entity(name = "room_extras")
+@Entity
+@Table(name = "room_extras")
 public class RoomExtras {
     @Getter
     @Id

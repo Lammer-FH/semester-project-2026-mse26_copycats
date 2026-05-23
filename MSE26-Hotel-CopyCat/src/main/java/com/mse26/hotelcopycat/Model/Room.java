@@ -3,7 +3,8 @@ package com.mse26.hotelcopycat.Model;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-@Entity(name = "rooms")
+@Entity
+@Table(name = "rooms")
 public class Room {
     @Getter
     @Id
