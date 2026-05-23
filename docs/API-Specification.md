@@ -6,6 +6,7 @@
 |--------|----------------------------|----------------------------------|---------------|
 | GET    | /api/v1/room-types         | List all room types (paginated)  | No            |
 | GET    | /api/v1/room-types/{id}    | Get room type details            | No            |
+| GET    | /api/v1/room-types/{id}/availability | Check room type availability | No            |
 | POST   | /bookings                  | Create a booking                 | No            |
 | GET    | /bookings/{id}             | Get booking details              | No            |
 | POST   | /guests                    | Register a new guest             | No            |
@@ -89,35 +90,35 @@ Returns the full details of a single room type including all extras.
 
 ---
 
-### GET /rooms/{id}/availability
+### GET /api/v1/room-types/{id}/availability
 
-Checks whether a room is available for a given period.
+Checks whether at least one room of the requested room type is available for a given period.
 
 **Path Parameters**
 
-| Parameter | Type    | Description |
-|-----------|---------|-------------|
-| id        | integer | Room ID     |
+| Parameter | Type    | Description   |
+|-----------|---------|---------------|
+| id        | integer | Room type ID  |
 
 **Query Parameters**
 
-| Parameter | Type              | Required | Description                     |
-|-----------|-------------------|----------|---------------------------------|
-| checkIn   | date (YYYY-MM-DD) | Yes      | Requested check-in date         |
-| checkOut  | date (YYYY-MM-DD) | Yes      | Requested check-out date        |
+| Parameter | Type              | Required | Description              |
+|-----------|-------------------|----------|--------------------------|
+| checkIn   | date (YYYY-MM-DD) | Yes      | Requested check-in date  |
+| checkOut  | date (YYYY-MM-DD) | Yes      | Requested check-out date |
 
 **Response `200 OK`**
 
 ```json
 {
-  "roomId": 1,
+  "roomTypeId": 1,
   "checkIn": "2026-07-01",
   "checkOut": "2026-07-05",
   "available": true
 }
 ```
 
-**Response `400 Bad Request`** (invalid or missing parameters)
+**Response `400 Bad Request`**
 
 ```json
 {
@@ -133,7 +134,7 @@ Checks whether a room is available for a given period.
 {
   "status": 404,
   "error": "Not Found",
-  "message": "Room with id 99 not found"
+  "message": "Room type with id 99 not found"
 }
 ```
 

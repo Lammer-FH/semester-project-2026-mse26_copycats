@@ -1,6 +1,7 @@
 package com.mse26.hotelcopycat.api.v1;
 
 import com.mse26.hotelcopycat.api.dtos.v1.RoomExtraResponseDto;
+import com.mse26.hotelcopycat.api.dtos.v1.RoomTypeAvailabilityResponseDto;
 import com.mse26.hotelcopycat.api.dtos.v1.RoomTypeResponseDto;
 import com.mse26.hotelcopycat.service.RoomTypeService;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 
 import java.util.List;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -70,5 +72,29 @@ class RoomTypeControllerTest {
         assertThat(capturedPageable.getPageSize()).isEqualTo(5);
         assertThat(capturedPageable.getSort().getOrderFor("id")).isNotNull();
         assertThat(capturedPageable.getSort().getOrderFor("id").isAscending()).isTrue();
+    }
+
+    @Test
+    void getAvailabilityReturnsAvailabilityJson() throws Exception {
+        RoomTypeAvailabilityResponseDto availability = RoomTypeAvailabilityResponseDto.builder()
+                .roomTypeId(1)
+                .checkIn(LocalDate.of(2026, 7, 1))
+                .checkOut(LocalDate.of(2026, 7, 5))
+                .available(true)
+                .build();
+
+        given(roomTypeService.getAvailability(1, LocalDate.of(2026, 7, 1), LocalDate.of(2026, 7, 5)))
+                .willReturn(availability);
+
+        mockMvc.perform(get("/api/v1/room-types/1/availability")
+                        .param("checkIn", "2026-07-01")
+                        .param("checkOut", "2026-07-05")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.roomTypeId").value(1))
+                .andExpect(jsonPath("$.checkIn").value("2026-07-01"))
+                .andExpect(jsonPath("$.checkOut").value("2026-07-05"))
+                .andExpect(jsonPath("$.available").value(true));
     }
 }

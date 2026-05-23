@@ -26,3 +26,8 @@ INSERT IGNORE INTO rooms (id, room_nr, id_room_types) VALUES
     (3, '201', 2),
     (4, '202', 2),
     (5, '301', 3);
+
+INSERT IGNORE INTO bookings (id, room_id, check_in, check_out) VALUES
+    (1, 1, '2026-07-01', '2026-07-05'),
+    (2, 3, '2026-07-10', '2026-07-15'),
+    (3, 5, '2026-08-01', '2026-08-03');
