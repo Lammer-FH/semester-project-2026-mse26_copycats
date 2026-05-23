@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "room_extras")
-public class RoomExtras {
+public class RoomExtra {
     @Getter
     @Id
     @Column(name = "id")
@@ -25,5 +25,5 @@ public class RoomExtras {
     @ManyToMany(mappedBy = "roomExtras")
     private Set<RoomType> roomTypes;
 
-    public RoomExtras() {}
+    public RoomExtra() {}
 }

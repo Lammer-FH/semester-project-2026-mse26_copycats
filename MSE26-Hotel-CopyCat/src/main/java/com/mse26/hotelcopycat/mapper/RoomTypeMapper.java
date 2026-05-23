@@ -1,7 +1,7 @@
 package com.mse26.hotelcopycat.mapper;
 
 import com.mse26.hotelcopycat.api.dtos.v1.RoomTypeResponseDto;
-import com.mse26.hotelcopycat.model.RoomExtras;
+import com.mse26.hotelcopycat.model.RoomExtra;
 import com.mse26.hotelcopycat.model.RoomType;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class RoomTypeMapper {
                 .extras(roomType.getRoomExtras() == null
                         ? List.of()
                         : roomType.getRoomExtras().stream()
-                        .sorted(Comparator.comparingInt(RoomExtras::getId))
+                        .sorted(Comparator.comparingInt(RoomExtra::getId))
                         .map(roomExtraMapper::toResponseDto)
                         .toList())
                 .build();

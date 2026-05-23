@@ -35,7 +35,7 @@ public class RoomType {
             joinColumns = @JoinColumn(name = "id_room_types"),
             inverseJoinColumns = @JoinColumn(name = "id_room_extras")
     )
-    private Set<RoomExtras> roomExtras;
+    private Set<RoomExtra> roomExtras;
 
     public RoomType() {}
 }
