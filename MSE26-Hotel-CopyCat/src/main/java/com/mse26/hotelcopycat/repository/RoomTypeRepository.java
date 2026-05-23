@@ -1,6 +1,6 @@
-package com.mse26.hotelcopycat.Repository;
+package com.mse26.hotelcopycat.repository;
 
-import com.mse26.hotelcopycat.Model.RoomType;
+import com.mse26.hotelcopycat.model.RoomType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;

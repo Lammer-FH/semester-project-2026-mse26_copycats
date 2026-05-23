@@ -1,8 +1,8 @@
-package com.mse26.hotelcopycat.Mapper;
+package com.mse26.hotelcopycat.mapper;
 
 import com.mse26.hotelcopycat.api.dtos.v1.RoomTypeResponseDto;
-import com.mse26.hotelcopycat.Model.RoomExtras;
-import com.mse26.hotelcopycat.Model.RoomType;
+import com.mse26.hotelcopycat.model.RoomExtras;
+import com.mse26.hotelcopycat.model.RoomType;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;

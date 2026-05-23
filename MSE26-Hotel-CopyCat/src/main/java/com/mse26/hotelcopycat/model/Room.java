@@ -1,4 +1,4 @@
-package com.mse26.hotelcopycat.Model;
+package com.mse26.hotelcopycat.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.mse26.hotelcopycat.api.v1;
 
 import com.mse26.hotelcopycat.api.dtos.v1.RoomTypeResponseDto;
-import com.mse26.hotelcopycat.Service.RoomDataService;
+import com.mse26.hotelcopycat.service.RoomDataService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +16,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/room-types")
-public class RoomDataAdministration {
+public class RoomTypeController {
     private final RoomDataService service;
 
-    public RoomDataAdministration(RoomDataService service) {
+    public RoomTypeController(RoomDataService service) {
         this.service = service;
     }
 
