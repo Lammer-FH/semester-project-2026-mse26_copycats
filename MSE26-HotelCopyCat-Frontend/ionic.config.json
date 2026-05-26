@@ -1,0 +1,7 @@
+{
+  "name": "MSE26-HotelCopyCat-Frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
