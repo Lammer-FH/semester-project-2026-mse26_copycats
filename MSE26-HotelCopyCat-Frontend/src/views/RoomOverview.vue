@@ -7,10 +7,20 @@
 
       <ion-grid>
         <ion-row>
-            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+            <ion-datetime-button datetime="startdatetime"></ion-datetime-button>
 
             <ion-modal :keep-contents-mounted="true">
-                <ion-datetime id="datetime"></ion-datetime>
+                <ion-datetime id="startdatetime"
+                presentation="date"
+                ></ion-datetime>
+            </ion-modal>
+
+            <ion-datetime-button datetime="enddatetime"></ion-datetime-button>
+
+            <ion-modal :keep-contents-mounted="true">
+                <ion-datetime id="enddatetime"
+                presentation="date"
+                ></ion-datetime>
             </ion-modal>
         </ion-row>
 
@@ -65,7 +75,8 @@ import RoomCard from '@/components/room/RoomCard.vue'
 import {
   IonPage,
   IonContent,
-  IonDatetime
+  IonDatetime,
+  IonDatetimeButton
 } from '@ionic/vue'
 
 import type { Room } from '@/models/Room'
@@ -88,6 +99,7 @@ export default {
     IonPage,
     IonContent,
     IonDatetime,
+    IonDatetimeButton,
     RoomCard
   },
 
