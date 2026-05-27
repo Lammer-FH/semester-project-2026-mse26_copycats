@@ -14,4 +14,4 @@ GPT-5.3
 
 ## Use Ionic native styling
 GPT-5.3
-- 
+- Ändere das Grid in RoomOverview zu dem Ionic Grid mit ion-col, sodass es gleich ausschaut wie vorher.

@@ -14,8 +14,8 @@
             :key="room.title"
             size="12"
             size-md="6"
-            size-lg="4"
-            size-xl="3"
+            size-lg="5"
+            size-xl="4"
           >
             <RoomCard :room="room" />
           </ion-col>
@@ -43,6 +43,7 @@ import classicDouble from '@/assets/rooms/classic-double.jpg'
 import classicKing from '@/assets/rooms/classic-king.jpg'
 import suiteDouble from '@/assets/rooms/suite-double.jpg'
 import suiteKing from '@/assets/rooms/suite-king.jpg'
+import presidentialSuite from '@/assets/rooms/presidential-suite.jpg'
 
 import spa from '@/assets/icons/spa.png'
 import minibar from '@/assets/icons/bar.png'
@@ -88,8 +89,26 @@ export default {
           ]
         },
         {
+          title: 'Classic King Sea View',
+          description: 'Spacious room with king bed and sea view',
+          imagePath: classicKing,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar }
+          ]
+        },
+        {
           title: 'Suite Double',
           description: 'Luxury suite with double bed',
+          imagePath: suiteDouble,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar }
+          ]
+        },
+        {
+          title: 'Suite Double Sea View',
+          description: 'Luxury suite with double bed and sea view',
           imagePath: suiteDouble,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
@@ -100,6 +119,26 @@ export default {
           title: 'Suite King',
           description: 'Luxury suite with king bed',
           imagePath: suiteKing,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar },
+            { id: 2, name: 'Spa', iconPath: spa }
+          ]
+        },
+        {
+          title: 'Suite King Sea View',
+          description: 'Luxury suite with king bed and sea view',
+          imagePath: suiteKing,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar },
+            { id: 2, name: 'Spa', iconPath: spa }
+          ]
+        },
+        {
+          title: 'Presidential Suite',
+          description: 'Ultimate Presidential Suite with king bed',
+          imagePath: presidentialSuite,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar },
