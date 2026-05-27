@@ -5,7 +5,10 @@
 
     <ion-content>
 
-      <ion-grid class="room-grid">
+      <ion-grid>
+        <ion-row>
+            <ion-datetime></ion-datetime>
+        </ion-row>
 
         <ion-row>
 
@@ -22,7 +25,7 @@
 
         </ion-row>
 
-        <ion-row class="pagination-row">
+        <ion-row>
             <ion-col>
                 <ion-button
                 :disabled="currentPage === 1"
@@ -57,7 +60,8 @@ import NavBar from '@/components/navigation/NavBar.vue'
 import RoomCard from '@/components/room/RoomCard.vue'
 import {
   IonPage,
-  IonContent
+  IonContent,
+  IonDatetime
 } from '@ionic/vue'
 
 import type { Room } from '@/models/Room'
@@ -79,6 +83,7 @@ export default {
     NavBar,
     IonPage,
     IonContent,
+    IonDatetime,
     RoomCard
   },
 
@@ -86,7 +91,7 @@ export default {
     return {
       currentPage: 1,
       roomsPerPage: 5,
-      
+      // TODO: remove once rooms are fetched from api
       rooms: [
         {
           id: 0,
@@ -203,5 +208,5 @@ export default {
 </script>
 
 <style>
-    
+
 </style>
