@@ -1,18 +1,141 @@
 <template>
-    <ion-page>
-        <NavBar/>
-        <ion-content>
-            <div id="container">
-                Room Overview
-            </div>
-        </ion-content>
-    </ion-page>
+  <ion-page>
+
+    <NavBar />
+
+    <ion-content>
+
+      <div class="room-grid">
+
+        <RoomCard
+          v-for="room in rooms"
+          :key="room.title"
+          :room="room"
+        />
+
+      </div>
+
+    </ion-content>
+
+  </ion-page>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import NavBar from '@/components/navigation/NavBar.vue'
+import RoomCard from '@/components/room/RoomCard.vue'
 import {
   IonPage,
   IonContent
 } from '@ionic/vue'
+
+import type { Room } from '@/models/Room'
+
+import classicDouble from '@/assets/rooms/classic-double.jpg'
+import classicKing from '@/assets/rooms/classic-king.jpg'
+import suiteDouble from '@/assets/rooms/suite-double.jpg'
+import suiteKing from '@/assets/rooms/suite-king.jpg'
+
+import spa from '@/assets/icons/spa.png'
+import minibar from '@/assets/icons/bar.png'
+import wifi from '@/assets/icons/wifi.png'
+
+export default {
+  name: 'RoomOverview',
+
+  components: {
+    NavBar,
+    IonPage,
+    IonContent,
+    RoomCard
+  },
+
+  data(): { rooms: Room[] } {
+    return {
+      rooms: [
+        {
+          title: 'Classic Double',
+          description: 'Cozy room with double bed',
+          imagePath: classicDouble,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi }
+          ]
+        },
+        {
+          title: 'Classic Double Sea View',
+          description: 'Cozy room with double bed and sea view',
+          imagePath: classicDouble,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar }
+          ]
+        },
+        {
+          title: 'Classic King',
+          description: 'Spacious room with king bed',
+          imagePath: classicKing,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar }
+          ]
+        },
+        {
+          title: 'Suite Double',
+          description: 'Luxury suite with double bed',
+          imagePath: suiteDouble,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar }
+          ]
+        },
+        {
+          title: 'Suite King',
+          description: 'Luxury suite with king bed',
+          imagePath: suiteKing,
+          extras: [
+            { id: 1, name: 'WiFi', iconPath: wifi },
+            { id: 2, name: 'Minibar', iconPath: minibar },
+            { id: 2, name: 'Spa', iconPath: spa }
+          ]
+        }
+      ]
+    }
+  }
+}
 </script>
+
+<style>
+.room-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 12px;
+}
+
+/* small tablets */
+@media (min-width: 600px) {
+  .room-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* tablets / small desktop */
+@media (min-width: 900px) {
+  .room-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* large desktop */
+@media (min-width: 1200px) {
+  .room-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* very large screens */
+@media (min-width: 1600px) {
+  .room-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
