@@ -10,7 +10,7 @@
         <ion-row>
 
           <ion-col
-            v-for="room in rooms"
+            v-for="room in paginatedRooms"
             :key="room.title"
             size="12"
             size-md="6"
@@ -20,6 +20,29 @@
             <RoomCard :room="room" />
           </ion-col>
 
+        </ion-row>
+
+        <ion-row class="pagination-row">
+            <ion-col>
+                <ion-button
+                :disabled="currentPage === 1"
+                @click="currentPage--"
+                >
+                    Previous
+                </ion-button>
+
+                <ion-text>
+                    Page {{ currentPage }} / {{ totalPages }}
+                </ion-text>
+
+                <ion-button
+                    :disabled="currentPage === totalPages"
+                    @click="currentPage++"
+                >
+                    Next
+                </ion-button>
+            </ion-col>
+            
         </ion-row>
 
       </ion-grid>
@@ -59,10 +82,14 @@ export default {
     RoomCard
   },
 
-  data(): { rooms: Room[] } {
+  data(): { rooms: Room[], currentPage: number, roomsPerPage: number } {
     return {
+      currentPage: 1,
+      roomsPerPage: 5,
+      
       rooms: [
         {
+          id: 0,
           title: 'Classic Double',
           description: 'Cozy room with double bed',
           imagePath: classicDouble,
@@ -71,6 +98,7 @@ export default {
           ]
         },
         {
+          id: 1,
           title: 'Classic Double Sea View',
           description: 'Cozy room with double bed and sea view',
           imagePath: classicDouble,
@@ -80,6 +108,7 @@ export default {
           ]
         },
         {
+          id: 2,
           title: 'Classic King',
           description: 'Spacious room with king bed',
           imagePath: classicKing,
@@ -89,6 +118,7 @@ export default {
           ]
         },
         {
+          id: 3,
           title: 'Classic King Sea View',
           description: 'Spacious room with king bed and sea view',
           imagePath: classicKing,
@@ -98,6 +128,7 @@ export default {
           ]
         },
         {
+          id: 4,
           title: 'Suite Double',
           description: 'Luxury suite with double bed',
           imagePath: suiteDouble,
@@ -107,6 +138,7 @@ export default {
           ]
         },
         {
+          id: 5,
           title: 'Suite Double Sea View',
           description: 'Luxury suite with double bed and sea view',
           imagePath: suiteDouble,
@@ -116,6 +148,7 @@ export default {
           ]
         },
         {
+          id: 6,
           title: 'Suite King',
           description: 'Luxury suite with king bed',
           imagePath: suiteKing,
@@ -126,6 +159,7 @@ export default {
           ]
         },
         {
+          id: 7,
           title: 'Suite King Sea View',
           description: 'Luxury suite with king bed and sea view',
           imagePath: suiteKing,
@@ -136,6 +170,7 @@ export default {
           ]
         },
         {
+          id: 8,
           title: 'Presidential Suite',
           description: 'Ultimate Presidential Suite with king bed',
           imagePath: presidentialSuite,
@@ -147,7 +182,23 @@ export default {
         }
       ]
     }
+  },
+
+  computed: {
+    /* get rooms of current page */
+      paginatedRooms(): Room[] {
+        const start = (this.currentPage - 1) * this.roomsPerPage //e.g: start at index 0
+        const end = start + this.roomsPerPage //take room until index 5 (not included) -> 0,1,2,3,4
+
+        return this.rooms.slice(start, end)
+    },
+
+    /* calculate total amount of pages */
+    totalPages(): number {
+        return Math.ceil(this.rooms.length / this.roomsPerPage)
+    }
   }
+
 }
 </script>
 
