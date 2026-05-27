@@ -11,3 +11,7 @@ GPT-5.3
 ## Make Room Cards responsive 
 GPT-5.3
 - Änder das CSS von RoomCard so, dass die Cards responsive je nach Bildschirmgröße angezeigt werden und schön angeordnet sind.
+
+## Use Ionic native styling
+GPT-5.3
+- 

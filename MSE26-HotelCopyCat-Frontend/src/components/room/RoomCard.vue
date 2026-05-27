@@ -71,7 +71,7 @@ export default {
 }
 
 ion-card {
-  background: #ffffff;
+  background: #d3d3d3;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);

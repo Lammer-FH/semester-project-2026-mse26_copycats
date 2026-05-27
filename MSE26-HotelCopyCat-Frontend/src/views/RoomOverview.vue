@@ -5,15 +5,24 @@
 
     <ion-content>
 
-      <div class="room-grid">
+      <ion-grid class="room-grid">
 
-        <RoomCard
-          v-for="room in rooms"
-          :key="room.title"
-          :room="room"
-        />
+        <ion-row>
 
-      </div>
+          <ion-col
+            v-for="room in rooms"
+            :key="room.title"
+            size="12"
+            size-md="6"
+            size-lg="4"
+            size-xl="3"
+          >
+            <RoomCard :room="room" />
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
 
     </ion-content>
 
@@ -104,38 +113,11 @@ export default {
 </script>
 
 <style>
-.room-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  padding: 12px;
-}
+    ion-grid {
+    padding: 12px;
+    }
 
-/* small tablets */
-@media (min-width: 600px) {
-  .room-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* tablets / small desktop */
-@media (min-width: 900px) {
-  .room-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-
-/* large desktop */
-@media (min-width: 1200px) {
-  .room-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* very large screens */
-@media (min-width: 1600px) {
-  .room-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+    ion-col {
+    display: flex;
+    }
 </style>
