@@ -12,6 +12,7 @@
             <ion-modal :keep-contents-mounted="true">
                 <ion-datetime id="startdatetime"
                 presentation="date"
+                :min="today"
                 ></ion-datetime>
             </ion-modal>
 
@@ -20,6 +21,7 @@
             <ion-modal :keep-contents-mounted="true">
                 <ion-datetime id="enddatetime"
                 presentation="date"
+                :min="today"
                 ></ion-datetime>
             </ion-modal>
         </ion-row>
@@ -217,6 +219,11 @@ export default {
     /* calculate total amount of pages */
     totalPages(): number {
         return Math.ceil(this.rooms.length / this.roomsPerPage)
+    },
+
+    /* get current date to use as min value for datepicker */
+    today(): string {
+    return new Date().toISOString().split('T')[0]
     }
   }
 
