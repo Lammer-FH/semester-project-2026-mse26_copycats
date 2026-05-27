@@ -113,11 +113,5 @@ export default {
 </script>
 
 <style>
-    ion-grid {
-    padding: 12px;
-    }
-
-    ion-col {
-    display: flex;
-    }
+    
 </style>
