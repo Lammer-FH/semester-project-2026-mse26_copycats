@@ -7,7 +7,11 @@
 
       <ion-grid>
         <ion-row>
-            <ion-datetime></ion-datetime>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+            <ion-modal :keep-contents-mounted="true">
+                <ion-datetime id="datetime"></ion-datetime>
+            </ion-modal>
         </ion-row>
 
         <ion-row>
