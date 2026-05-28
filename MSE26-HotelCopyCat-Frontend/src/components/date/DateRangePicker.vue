@@ -3,24 +3,30 @@
     <ion-datetime-button datetime="startdate"></ion-datetime-button>
 
     <ion-modal :keep-contents-mounted="true">
-        <ion-datetime 
-        id="startdate" 
+        <ion-datetime
+        id="startdate"
         presentation="date" 
         :min="today"
-        v-model="bookingStore.startDate">
-        </ion-datetime>
+        :value="bookingStore.startDate ?? today"
+        @ionChange="(e: any) => bookingStore.startDate = e.detail.value"
+        />
     </ion-modal>
 
     <ion-datetime-button datetime="enddate"></ion-datetime-button>
 
     <ion-modal :keep-contents-mounted="true">
-        <ion-datetime 
+        <ion-datetime
         id="enddate" 
-        presentation="date" 
+        presentation="date"
         :min="bookingStore.startDate || today" 
-        v-model="bookingStore.endDate">
-        </ion-datetime>
+        :value="bookingStore.endDate ?? today"
+        @ionChange="(e: any) => bookingStore.endDate = e.detail.value"
+        />
     </ion-modal>
+
+    <ion-button @click="resetDates">
+        Reset
+    </ion-button>
 </template>
 
 <script lang="ts">
@@ -29,7 +35,8 @@ import {
     IonContent,
     IonDatetime,
     IonDatetimeButton,
-    IonModal
+    IonModal,
+    IonButton
 } from '@ionic/vue'
 import { useBookingPeriodStore } from '@/stores/useBookingPeriodStore'
 
@@ -41,7 +48,8 @@ export default {
         IonContent,
         IonDatetime,
         IonDatetimeButton,
-        IonModal
+        IonModal,
+        IonButton
     },
     data() {
         return {
@@ -52,6 +60,12 @@ export default {
         /* get current date to use as min value for datepicker */
         today(): string {
             return new Date().toISOString().split('T')[0]
+        }
+    },
+    methods: {
+        async resetDates() {
+            const bookingStore = useBookingPeriodStore()
+            bookingStore.clearBookingPeriod()
         }
     }
 }

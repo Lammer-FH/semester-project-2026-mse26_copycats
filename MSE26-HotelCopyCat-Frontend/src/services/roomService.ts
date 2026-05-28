@@ -129,8 +129,8 @@ export default {
 
   async getAvailability(
     roomTypeId: number,
-    checkIn: string | undefined,
-    checkOut: string | undefined
+    checkIn: string | null,
+    checkOut: string | null
   ) {
 
     // const response = await api.get(
