@@ -17,4 +17,9 @@ GPT-5.3
 - Ändere das Grid in RoomOverview zu dem Ionic Grid mit ion-col, sodass es gleich ausschaut wie vorher.
 
 ## Get current date for min value in date picker
-- Wie bekomme ich den Wert vom current Date, damit ich es als min value beim Date picker verwenden kann.
+GPT-5.3
+- Wie bekomme ich den Wert vom heutigen Datum, damit ich es als min value beim Date picker verwenden kann.
+
+## Show available rooms if date were picked
+GPT-5.3
+- Wenn ich im Date Picker ein Start und Enddatum eingebe, will ich nur die available rooms sehen, mach, dass die Seite reaktiv drauf reagiert auf was das Datum gesetzt wurde.

@@ -12,16 +12,16 @@ import wifi from '@/assets/icons/wifi.png'
 export default {
 
   async getRoomTypes(page = 0, size = 5) {
-    const response = await api.get('/room-types', {
-      params: {
-        page,
-        size
-      }
-    })
+    // const response = await api.get('/room-types', {
+    //   params: {
+    //     page,
+    //     size
+    //   }
+    // })
 
     //return response.data
     // TODO: remove static data once rooms are fetched from api
-    return [{
+    const allRooms = [{
           id: 0,
           title: 'Classic Double',
           description: 'Cozy room with double bed',
@@ -113,27 +113,38 @@ export default {
             { id: 2, name: 'Spa', iconPath: spa }
           ]
         }]
+    const start = page * size
+    const end = start + size
+
+    const paginatedRooms = allRooms.slice(start, end)
+    return {
+        rooms: paginatedRooms,
+        page: page,
+        size: size,
+        totalElements: 9,
+        totalPages: 2
+    }
+    
   },
 
   async getAvailability(
     roomTypeId: number,
-    checkIn: string,
-    checkOut: string
+    checkIn: string | undefined,
+    checkOut: string | undefined
   ) {
 
-    const response = await api.get(
-      `/room-types/${roomTypeId}/availability`,
-      {
-        params: {
-          checkIn,
-          checkOut
-        }
-      }
-    )
+    // const response = await api.get(
+    //   `/room-types/${roomTypeId}/availability`,
+    //   {
+    //     params: {
+    //       checkIn,
+    //       checkOut
+    //     }
+    //   }
+    // )
 
     //return response.data
-    // TODO: remove random availability once real data is fetched from api
-    let random: number = Math.floor(Math.random() * 2);
-    return random === 0;
+    // TODO: remove static availability once real data is fetched from api
+    return roomTypeId < 5;
   }
 }
