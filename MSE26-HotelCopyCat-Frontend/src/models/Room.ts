@@ -4,6 +4,7 @@ export interface Room {
     description: string
     imagePath: string
     extras: RoomExtra[]
+    available?: boolean
 }
 
 export interface RoomExtra {
