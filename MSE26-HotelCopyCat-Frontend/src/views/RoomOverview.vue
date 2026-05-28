@@ -8,6 +8,8 @@
             <ion-grid>
                 <ion-row>
                     <h1>Available Rooms</h1>
+                </ion-row>
+                <ion-row>
                     <DateRangePicker />
                 </ion-row>
 
@@ -60,6 +62,7 @@ import {
     IonCol,
     IonButton,
     IonText,
+    IonSpinner
 } from '@ionic/vue'
 
 import type { Room } from '@/models/Room'
@@ -78,6 +81,7 @@ export default {
         IonCol,
         IonButton,
         IonText,
+        IonSpinner,
         DateRangePicker,
         RoomCard
     },
@@ -135,6 +139,7 @@ export default {
                     )
 
                     fetchedRooms = availabilityResults.filter(r => r.available)
+                    this.totalPages = Math.ceil(fetchedRooms.length / this.roomsPerPage)
                 }
 
                 this.rooms = fetchedRooms
