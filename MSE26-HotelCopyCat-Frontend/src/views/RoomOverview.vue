@@ -7,23 +7,8 @@
 
       <ion-grid>
         <ion-row>
-            <ion-datetime-button datetime="startdatetime"></ion-datetime-button>
-
-            <ion-modal :keep-contents-mounted="true">
-                <ion-datetime id="startdatetime"
-                presentation="date"
-                :min="today"
-                ></ion-datetime>
-            </ion-modal>
-
-            <ion-datetime-button datetime="enddatetime"></ion-datetime-button>
-
-            <ion-modal :keep-contents-mounted="true">
-                <ion-datetime id="enddatetime"
-                presentation="date"
-                :min="today"
-                ></ion-datetime>
-            </ion-modal>
+            <h1>Available Rooms</h1>
+            <DateRangePicker />
         </ion-row>
 
         <ion-row>
@@ -74,11 +59,15 @@
 <script lang="ts">
 import NavBar from '@/components/navigation/NavBar.vue'
 import RoomCard from '@/components/room/RoomCard.vue'
+import DateRangePicker from '@/components/date/DateRangePicker.vue'
 import {
   IonPage,
   IonContent,
-  IonDatetime,
-  IonDatetimeButton
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButton,
+  IonText,
 } from '@ionic/vue'
 
 import type { Room } from '@/models/Room'
@@ -100,8 +89,12 @@ export default {
     NavBar,
     IonPage,
     IonContent,
-    IonDatetime,
-    IonDatetimeButton,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonButton,
+    IonText,
+    DateRangePicker,
     RoomCard
   },
 
@@ -221,10 +214,6 @@ export default {
         return Math.ceil(this.rooms.length / this.roomsPerPage)
     },
 
-    /* get current date to use as min value for datepicker */
-    today(): string {
-    return new Date().toISOString().split('T')[0]
-    }
   }
 
 }

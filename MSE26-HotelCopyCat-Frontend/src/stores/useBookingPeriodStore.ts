@@ -1,26 +1,29 @@
 import { defineStore } from 'pinia'
 
 interface BookingPeriod {
-  startDate: string
-  endDate: string
+  startDate: string | undefined
+  endDate: string | undefined
 }
 
-export const useBookingStore = defineStore('booking', {
+export const useBookingPeriodStore = defineStore('booking', {
   state: (): BookingPeriod => ({
-    startDate: '',
-    endDate: ''
+    startDate: undefined,
+    endDate: undefined
   }),
 
   getters: {
     isValidPeriod: (state) => {
       return (
-        state.startDate !== '' &&
-        state.endDate !== '' &&
+        state.startDate !== undefined &&
+        state.endDate !== undefined &&
         new Date(state.startDate) <= new Date(state.endDate)
       )
     },
 
     durationInDays: (state) => {
+      if (state.startDate === undefined || state.endDate === undefined) {
+        return 0
+      }
       const start = new Date(state.startDate)
       const end = new Date(state.endDate)
 
@@ -37,8 +40,8 @@ export const useBookingStore = defineStore('booking', {
     },
 
     clearBookingPeriod() {
-      this.startDate = ''
-      this.endDate = ''
+      this.startDate = undefined
+      this.endDate = undefined
     }
   }
 })
