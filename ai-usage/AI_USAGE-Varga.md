@@ -19,6 +19,7 @@ Claude Sonnet 4.6:
 ### CSS
 Claude Sonnet 4.6:
 - availability badge on room cards
+- Unavailable badge not in greyscale
 
 ### Datepicker UX Rework
 Claude Sonnet 4.6:

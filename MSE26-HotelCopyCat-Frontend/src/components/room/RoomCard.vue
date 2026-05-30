@@ -94,6 +94,7 @@ export default {
   font-size: 0.72rem;
   padding: 4px 8px;
   border-radius: 6px;
+  z-index: 1;
 }
 
 ion-card {
@@ -126,8 +127,22 @@ ion-card-content {
 }
 
 .disabled {
-  opacity: 0.5;
-  filter: grayscale(0.8);
+  position: relative;
+  cursor: not-allowed;
+}
+
+.disabled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.disabled .room-image {
+  filter: grayscale(0.7);
+  opacity: 0.6;
 }
 
 .disabled:hover {
