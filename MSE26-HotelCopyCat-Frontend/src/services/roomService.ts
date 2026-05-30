@@ -1,13 +1,13 @@
 import api from './api'
-import classicDouble from '@/assets/rooms/classic-double.jpg'
-import classicKing from '@/assets/rooms/classic-king.jpg'
-import suiteDouble from '@/assets/rooms/suite-double.jpg'
-import suiteKing from '@/assets/rooms/suite-king.jpg'
-import presidentialSuite from '@/assets/rooms/presidential-suite.jpg'
+import classicDouble from '@/images/rooms/classic-double.jpg'
+import classicKing from '@/images/rooms/classic-king.jpg'
+import suiteDouble from '@/images/rooms/suite-double.jpg'
+import suiteKing from '@/images/rooms/suite-king.jpg'
+import presidentialSuite from '@/images/rooms/presidential-suite.jpg'
 
-import spa from '@/assets/icons/spa.png'
-import minibar from '@/assets/icons/bar.png'
-import wifi from '@/assets/icons/wifi.png'
+import spa from '@/images/icons/spa.png'
+import minibar from '@/images/icons/bar.png'
+import wifi from '@/images/icons/wifi.png'
 
 export default {
 
@@ -88,7 +88,7 @@ export default {
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar },
-            { id: 2, name: 'Spa', iconPath: spa }
+            { id: 3, name: 'Spa', iconPath: spa }
           ]
         },
         {
@@ -99,7 +99,7 @@ export default {
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar },
-            { id: 2, name: 'Spa', iconPath: spa }
+            { id: 3, name: 'Spa', iconPath: spa }
           ]
         },
         {
@@ -110,7 +110,7 @@ export default {
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar },
-            { id: 2, name: 'Spa', iconPath: spa }
+            { id: 3, name: 'Spa', iconPath: spa }
           ]
         }]
     const start = page * size
@@ -121,8 +121,8 @@ export default {
         rooms: paginatedRooms,
         page: page,
         size: size,
-        totalElements: 9,
-        totalPages: 2
+        totalElements: allRooms.length,
+        totalPages: Math.ceil(allRooms.length / size)
     }
     
   },

@@ -64,8 +64,7 @@ export default {
     },
     methods: {
         async resetDates() {
-            const bookingStore = useBookingPeriodStore()
-            bookingStore.clearBookingPeriod()
+             this.bookingStore.clearBookingPeriod()
         }
     }
 }

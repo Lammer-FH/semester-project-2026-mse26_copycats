@@ -15,12 +15,16 @@
 
                 <ion-row>
 
-                    <ion-col v-if="!loading" v-for="room in rooms" :key="room.title" size="12" size-md="6" size-lg="5" size-xl="4">
-                        <RoomCard :room="room" />
-                    </ion-col>
-                    <ion-col v-if="loading">
-                        <ion-spinner name="circles" />
-                    </ion-col>
+                    <template v-if="!loading">
+                        <ion-col v-for="room in rooms" :key="room.title" size="12" size-md="6" size-lg="5" size-xl="4">
+                            <RoomCard :room="room" />
+                        </ion-col>
+                    </template>
+                    <template v-if="loading">
+                      <ion-col>
+                          <ion-spinner name="circles" />
+                      </ion-col>
+                    </template>
 
                 </ion-row>
 
@@ -172,15 +176,11 @@ export default {
         }
     },
     watch: {
-        'booking.startDate': {
+        booking: {
             handler() {
-            this.loadRooms()
-            }
-        },
-        'booking.endDate': {
-            handler() {
-            this.loadRooms()
-            }
+                this.loadRooms()
+            },
+            deep: true
         }
     }
 
