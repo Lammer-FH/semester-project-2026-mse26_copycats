@@ -2,7 +2,12 @@
 
   <ion-card :class="['room-card', { disabled }]" @click="!disabled && goToDetail()">
 
-    <img :src="getRoomImageUrl(room.id)" class="room-image" :alt="room.name" />
+    <div class="image-wrapper">
+      <img :src="getRoomImageUrl(room.id)" class="room-image" :alt="room.name" />
+      <ion-badge v-if="room.available !== undefined" :color="room.available ? 'success' : 'danger'" class="availability-badge">
+        {{ room.available ? 'Available' : 'Unavailable' }}
+      </ion-badge>
+    </div>
 
     <ion-card-header>
 
@@ -29,7 +34,8 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardTitle
+  IonCardTitle,
+  IonBadge
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 
@@ -44,6 +50,7 @@ export default {
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
+    IonBadge,
     RoomExtrasList
   },
 
@@ -76,6 +83,20 @@ export default {
   border-top-right-radius: 14px;
 }
 
+.image-wrapper {
+  position: relative;
+}
+
+.availability-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.72rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 1;
+}
+
 ion-card {
   border-radius: 14px;
   overflow: hidden;
@@ -106,8 +127,22 @@ ion-card-content {
 }
 
 .disabled {
-  opacity: 0.5;
-  filter: grayscale(0.8);
+  position: relative;
+  cursor: not-allowed;
+}
+
+.disabled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.disabled .room-image {
+  filter: grayscale(0.7);
+  opacity: 0.6;
 }
 
 .disabled:hover {
