@@ -1,6 +1,6 @@
 <template>
 
-  <ion-card>
+  <ion-card :class="{ disabled }">
 
     <img :src="room.imagePath" class="room-image" />
 
@@ -56,6 +56,10 @@ export default {
     room: {
       type: Object as () => Room,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -106,5 +110,14 @@ ion-card-content {
   width: 22px;
   height: 22px;
   opacity: 0.85;
+}
+
+.disabled {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+}
+
+.disabled:hover {
+  transform: none;
 }
 </style>

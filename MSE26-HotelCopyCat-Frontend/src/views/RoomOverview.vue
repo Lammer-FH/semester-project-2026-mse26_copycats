@@ -17,7 +17,10 @@
 
                     <template v-if="!loading">
                         <ion-col v-for="room in rooms" :key="room.title" size="12" size-md="6" size-lg="5" size-xl="4">
-                            <RoomCard :room="room" />
+                            <RoomCard
+                              :room="room"
+                              :disabled="room.available === false"
+                            />
                         </ion-col>
                     </template>
                     <template v-if="loading">
@@ -141,9 +144,7 @@ export default {
                             }
                         })
                     )
-
-                    fetchedRooms = availabilityResults.filter(r => r.available)
-                    this.totalPages = Math.ceil(fetchedRooms.length / this.roomsPerPage)
+                    fetchedRooms = availabilityResults
                 }
 
                 this.rooms = fetchedRooms
