@@ -128,10 +128,8 @@ export default {
   },
 
   async getRoomTypeById(id: number) {
-    // const response = await api.get(`/room-types/${id}`)
-    // return response.data
-    const result = await this.getRoomTypes(0, 100)
-    return result.rooms.find(r => r.id === id) ?? null
+    const response = await api.get(`/room-types/${id}`)
+    return response.data
   },
 
   async getAvailability(
