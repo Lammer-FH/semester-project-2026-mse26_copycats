@@ -19,3 +19,9 @@ Claude Sonnet 4.6:
 ### CSS
 Claude Sonnet 4.6:
 - availability badge on room cards
+
+### Datepicker
+Claude Sonnet 4.6:
+- research for daterange-pickers (similar to angular materials')
+![Angular Material Daterange-Picker](./reference-images/Angular-Material_Daterange-Picker.png)
+- remove timestamp from vue daterange picker input

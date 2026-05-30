@@ -1,71 +1,75 @@
 <template>
-    
-    <ion-datetime-button datetime="startdate"></ion-datetime-button>
-
-    <ion-modal :keep-contents-mounted="true">
-        <ion-datetime
-        id="startdate"
-        presentation="date" 
-        :min="today"
-        :value="bookingStore.startDate ?? today"
-        @ionChange="(e: any) => bookingStore.startDate = e.detail.value"
-        />
-    </ion-modal>
-
-    <ion-datetime-button datetime="enddate"></ion-datetime-button>
-
-    <ion-modal :keep-contents-mounted="true">
-        <ion-datetime
-        id="enddate" 
-        presentation="date"
-        :min="bookingStore.startDate || today" 
-        :value="bookingStore.endDate ?? today"
-        @ionChange="(e: any) => bookingStore.endDate = e.detail.value"
-        />
-    </ion-modal>
-
-    <ion-button @click="resetDates">
-        Reset
-    </ion-button>
+  <div class="range-picker-wrapper">
+    <VueDatePicker
+      v-model="dateRange"
+      range
+      :min-date="today"
+      :enable-time-picker="false"
+      placeholder="Check-in - Check-out"
+      auto-apply
+      :formats="{ input: 'dd MMM yyyy' }"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import {
-    IonPage,
-    IonContent,
-    IonDatetime,
-    IonDatetimeButton,
-    IonModal,
-    IonButton
-} from '@ionic/vue'
+import { VueDatePicker } from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 import { useBookingPeriodStore } from '@/stores/useBookingPeriodStore'
 
-export default {
-    name: 'DateRangePicker',
+function toIsoDate(date: Date): string {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
 
-    components: {
-        IonPage,
-        IonContent,
-        IonDatetime,
-        IonDatetimeButton,
-        IonModal,
-        IonButton
-    },
-    data() {
-        return {
-            bookingStore: useBookingPeriodStore()
-        }
-    },
-    computed: {
-        /* get current date to use as min value for datepicker */
-        today(): string {
-            return new Date().toISOString().split('T')[0]
-        }
-    },
-    methods: {
-        async resetDates() {
-             this.bookingStore.clearBookingPeriod()
-        }
+function fromIsoDate(str: string): Date {
+  const [y, m, d] = str.split('-').map(Number)
+  return new Date(y, m - 1, d)
+}
+
+export default {
+  name: 'DateRangePicker',
+
+  components: { VueDatePicker },
+
+  data() {
+    return {
+      bookingStore: useBookingPeriodStore()
     }
+  },
+
+  computed: {
+    today(): Date {
+      return new Date()
+    },
+
+    dateRange: {
+      get(): [Date, Date] | null {
+        if (this.bookingStore.startDate && this.bookingStore.endDate) {
+          return [fromIsoDate(this.bookingStore.startDate), fromIsoDate(this.bookingStore.endDate)]
+        }
+        return null
+      },
+      set(value: [Date, Date] | null) {
+        if (value && value[0] && value[1]) {
+          this.bookingStore.startDate = toIsoDate(value[0])
+          this.bookingStore.endDate = toIsoDate(value[1])
+        } else {
+          this.bookingStore.clearBookingPeriod()
+        }
+      }
+    }
+  },
+
+  methods: {}
 }
 </script>
+
+<style scoped>
+.range-picker-wrapper {
+  width: 100%;
+  max-width: 480px;
+}
+</style>
