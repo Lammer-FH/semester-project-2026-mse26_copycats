@@ -1,6 +1,6 @@
 export interface Room {
     id: number
-    title: string
+    name: string
     description: string
     imagePath: string
     extras: RoomExtra[]

@@ -6,16 +6,16 @@
         <ion-buttons slot="start">
           <ion-back-button default-href="/rooms" />
         </ion-buttons>
-        <ion-title>{{ room?.title ?? 'Room Details' }}</ion-title>
+        <ion-title>{{ room?.name ?? 'Room Details' }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
       <div v-if="room" class="detail-container">
-        <img :src="room.imagePath" :alt="room.title" class="room-image" />
+        <img :src="room.imagePath" :alt="room.name" class="room-image" />
 
         <div class="detail-content">
-          <h1 class="room-title">{{ room.title }}</h1>
+          <h1 class="room-title">{{ room.name }}</h1>
           <p class="room-description">{{ room.description }}</p>
           <ion-label>Amenities</ion-label>
           <RoomExtrasList :extras="room.extras" class="extras-section" />

@@ -2,12 +2,12 @@
 
   <ion-card :class="['room-card', { disabled }]" @click="!disabled && goToDetail()">
 
-    <img :src="room.imagePath" class="room-image" :alt="room.title" />
+    <img :src="room.imagePath" class="room-image" :alt="room.name" />
 
     <ion-card-header>
 
       <ion-card-title>
-        {{ room.title }}
+        {{ room.name }}
       </ion-card-title>
 
     </ion-card-header>

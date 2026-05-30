@@ -23,7 +23,7 @@ export default {
     // TODO: remove static data once rooms are fetched from api
     const allRooms = [{
           id: 0,
-          title: 'Classic Double',
+          name: 'Classic Double',
           description: 'Cozy room with double bed',
           imagePath: classicDouble,
           extras: [
@@ -32,7 +32,7 @@ export default {
         },
         {
           id: 1,
-          title: 'Classic Double Sea View',
+          name: 'Classic Double Sea View',
           description: 'Cozy room with double bed and sea view',
           imagePath: classicDouble,
           extras: [
@@ -42,7 +42,7 @@ export default {
         },
         {
           id: 2,
-          title: 'Classic King',
+          name: 'Classic King',
           description: 'Spacious room with king bed',
           imagePath: classicKing,
           extras: [
@@ -52,7 +52,7 @@ export default {
         },
         {
           id: 3,
-          title: 'Classic King Sea View',
+          name: 'Classic King Sea View',
           description: 'Spacious room with king bed and sea view',
           imagePath: classicKing,
           extras: [
@@ -62,7 +62,7 @@ export default {
         },
         {
           id: 4,
-          title: 'Suite Double',
+          name: 'Suite Double',
           description: 'Luxury suite with double bed',
           imagePath: suiteDouble,
           extras: [
@@ -72,7 +72,7 @@ export default {
         },
         {
           id: 5,
-          title: 'Suite Double Sea View',
+          name: 'Suite Double Sea View',
           description: 'Luxury suite with double bed and sea view',
           imagePath: suiteDouble,
           extras: [
@@ -82,7 +82,7 @@ export default {
         },
         {
           id: 6,
-          title: 'Suite King',
+          name: 'Suite King',
           description: 'Luxury suite with king bed',
           imagePath: suiteKing,
           extras: [
@@ -93,7 +93,7 @@ export default {
         },
         {
           id: 7,
-          title: 'Suite King Sea View',
+          name: 'Suite King Sea View',
           description: 'Luxury suite with king bed and sea view',
           imagePath: suiteKing,
           extras: [
@@ -104,7 +104,7 @@ export default {
         },
         {
           id: 8,
-          title: 'Presidential Suite',
+          name: 'Presidential Suite',
           description: 'Ultimate Presidential Suite with king bed',
           imagePath: presidentialSuite,
           extras: [
