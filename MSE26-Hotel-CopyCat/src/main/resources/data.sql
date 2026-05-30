@@ -4,10 +4,12 @@ INSERT IGNORE INTO room_types (id, name, description, image_path) VALUES
     (3, 'Business Room', 'A quiet room tailored for work trips and short stays.', '/images/rooms/3.jpg');
 
 INSERT IGNORE INTO room_extras (id, name, icon_path) VALUES
-    (1, 'WiFi', '/images/extras/wifi.svg'),
-    (2, 'Air Conditioning', '/images/extras/air-conditioning.svg'),
-    (3, 'Parking', '/images/extras/parking.svg'),
-    (4, 'Balcony', '/images/extras/balcony.svg');
+    (1, 'WiFi', '/images/icons/wifi.png'),
+    (2, 'Air Conditioning', '/images/icons/air-conditioning.png'),
+    (3, 'Parking', '/images/icons/parking.png'),
+    (4, 'Balcony', '/images/icons/balcony.png'),
+    (5, 'Mini Bar', '/images/icons/bar.png'),
+    (6, 'Spa Access', '/images/icons/spa.png');
 
 INSERT IGNORE INTO room_type_room_extras (id_room_types, id_room_extras) VALUES
     (1, 1),

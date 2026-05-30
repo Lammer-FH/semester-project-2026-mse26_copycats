@@ -1,7 +1,7 @@
 <template>
   <div class="extras-list">
     <div v-for="extra in extras" :key="extra.id" class="extra-item">
-      <img :src="extra.iconPath" class="extra-icon" :alt="extra.name" />
+      <img :src="getExtraIconUrl(extra.iconPath)" class="extra-icon" :alt="extra.name" />
       <span class="extra-name">{{ extra.name }}</span>
     </div>
   </div>
@@ -9,6 +9,7 @@
 
 <script lang="ts">
 import type { RoomExtra } from '@/models/Room'
+import { getExtraIconUrl } from '@/models/Room'
 
 export default {
   name: 'RoomExtrasList',
@@ -17,6 +18,10 @@ export default {
       type: Array as () => RoomExtra[],
       required: true
     }
+  },
+
+  methods: {
+    getExtraIconUrl
   }
 }
 </script>
