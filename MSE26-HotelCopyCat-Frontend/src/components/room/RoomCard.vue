@@ -2,7 +2,12 @@
 
   <ion-card :class="['room-card', { disabled }]" @click="!disabled && goToDetail()">
 
-    <img :src="getRoomImageUrl(room.id)" class="room-image" :alt="room.name" />
+    <div class="image-wrapper">
+      <img :src="getRoomImageUrl(room.id)" class="room-image" :alt="room.name" />
+      <ion-badge v-if="room.available !== undefined" :color="room.available ? 'success' : 'danger'" class="availability-badge">
+        {{ room.available ? 'Available' : 'Unavailable' }}
+      </ion-badge>
+    </div>
 
     <ion-card-header>
 
@@ -29,7 +34,8 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardTitle
+  IonCardTitle,
+  IonBadge
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 
@@ -44,6 +50,7 @@ export default {
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
+    IonBadge,
     RoomExtrasList
   },
 
@@ -74,6 +81,19 @@ export default {
   object-fit: cover;
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.availability-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.72rem;
+  padding: 4px 8px;
+  border-radius: 6px;
 }
 
 ion-card {

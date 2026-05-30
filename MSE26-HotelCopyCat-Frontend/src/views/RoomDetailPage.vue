@@ -17,6 +17,31 @@
         <div class="detail-content">
           <h1 class="room-title">{{ room.name }}</h1>
           <p class="room-description">{{ room.description }}</p>
+
+          <div class="availability-section">
+            <template v-if="bookingStore.startDate && bookingStore.endDate">
+              <ion-text class="date-range-label">
+                {{ formatDate(bookingStore.startDate) }} &ndash; {{ formatDate(bookingStore.endDate) }}
+              </ion-text>
+              <div class="availability-status">
+                <ion-spinner v-if="availabilityLoading" name="crescent" />
+                <template v-else-if="availability !== null">
+                  <ion-badge :color="availability ? 'success' : 'danger'">
+                    {{ availability ? 'Available' : 'Not available' }}
+                  </ion-badge>
+                  <ion-button :disabled="!availability" expand="block" class="book-button">
+                    Book now
+                  </ion-button>
+                </template>
+              </div>
+            </template>
+            <template v-else>
+              <ion-text color="medium" class="no-dates-hint">
+                No dates selected - <router-link to="/rooms">select dates</router-link>
+              </ion-text>
+            </template>
+          </div>
+
           <ion-label>Amenities</ion-label>
           <RoomExtrasList :extras="room.extras" class="extras-section" />
         </div>
@@ -41,12 +66,16 @@ import {
   IonTitle,
   IonContent,
   IonLabel,
-  IonText
+  IonText,
+  IonBadge,
+  IonButton,
+  IonSpinner
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 import roomService from '@/services/roomService'
 import type { Room } from '@/models/Room'
 import { getRoomImageUrl } from '@/models/Room'
+import { useBookingPeriodStore } from '@/stores/useBookingPeriodStore'
 
 export default {
   name: 'RoomDetailPage',
@@ -61,22 +90,51 @@ export default {
     IonContent,
     IonLabel,
     IonText,
+    IonBadge,
+    IonButton,
+    IonSpinner,
     RoomExtrasList
   },
 
   data() {
     return {
       room: null as Room | null,
+      availability: null as boolean | null,
+      availabilityLoading: false,
+      bookingStore: useBookingPeriodStore()
     }
   },
 
   async created() {
     const id = Number(this.$route.params.id)
     this.room = await roomService.getRoomTypeById(id)
+    await this.checkAvailability()
   },
 
   methods: {
-    getRoomImageUrl
+    getRoomImageUrl,
+
+    async checkAvailability() {
+      if (!this.room || !this.bookingStore.startDate || !this.bookingStore.endDate) return
+      this.availabilityLoading = true
+      try {
+        this.availability = await roomService.getAvailability(
+          this.room.id,
+          this.bookingStore.startDate,
+          this.bookingStore.endDate
+        )
+      } finally {
+        this.availabilityLoading = false
+      }
+    },
+
+    formatDate(dateStr: string): string {
+      return new Date(dateStr).toLocaleDateString('de-AT', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      })
+    }
   }
 }
 </script>
@@ -115,5 +173,41 @@ export default {
 
 .extras-section {
   margin-top: 8px;
+}
+
+.availability-section {
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  background: var(--ion-color-light, #f4f4f4);
+  border-radius: 10px;
+}
+
+.date-range-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ion-color-medium);
+  margin-bottom: 10px;
+}
+
+.availability-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.book-button {
+  flex: 1;
+  min-width: 140px;
+  margin: 0;
+}
+
+.no-dates-hint {
+  font-size: 0.9rem;
+}
+
+.no-dates-hint a {
+  color: var(--ion-color-primary);
+  text-decoration: none;
 }
 </style>

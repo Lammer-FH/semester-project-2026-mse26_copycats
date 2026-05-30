@@ -14,3 +14,8 @@ Claude Sonnet 4.6:
 - ![console error log](./reference-images/CORS-error.png)
 - added [WebConfig.java](../MSE26-Hotel-CopyCat/src/main/java/com/mse26/hotelcopycat/config/WebConfig.java)
 - move multiple CORS allowedOrigins into application.properties
+
+## Check Availability
+### CSS
+Claude Sonnet 4.6:
+- availability badge on room cards

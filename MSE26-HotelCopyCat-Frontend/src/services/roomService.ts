@@ -25,19 +25,14 @@ export default {
     checkIn: string | null,
     checkOut: string | null
   ) {
-
-    // const response = await api.get(
-    //   `/room-types/${roomTypeId}/availability`,
-    //   {
-    //     params: {
-    //       checkIn,
-    //       checkOut
-    //     }
-    //   }
-    // )
-
-    //return response.data
-    // TODO: remove static availability once real data is fetched from api
-    return roomTypeId < 5;
+    const response = await api.get(`/room-types/${roomTypeId}/availability`,
+      {
+        params: {
+          checkIn,
+          checkOut
+        }
+      }
+    )
+    return response.data.available
   }
 }
