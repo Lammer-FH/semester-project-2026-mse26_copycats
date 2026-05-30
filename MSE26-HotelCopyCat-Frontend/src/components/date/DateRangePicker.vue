@@ -110,6 +110,12 @@ export default {
     background-color: var(--ion-item-background, #1c1c1e);
     border-color: var(--ion-color-step-300, #4d4d4d);
   }
+
+  .range-picker-wrapper :deep(.dp--overlay-cell-disabled),
+  .range-picker-wrapper :deep(.dp--overlay-cell-disabled:hover) {
+    background: rgba(255, 255, 255, 0.07);
+    color: #555;
+  }
 }
 
 .range-picker-wrapper :deep(.dp--menu) {
