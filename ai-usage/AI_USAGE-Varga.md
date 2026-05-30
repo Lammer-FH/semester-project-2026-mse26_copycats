@@ -20,8 +20,11 @@ Claude Sonnet 4.6:
 Claude Sonnet 4.6:
 - availability badge on room cards
 
-### Datepicker
+### Datepicker UX Rework
 Claude Sonnet 4.6:
 - research for daterange-pickers (similar to angular materials')
 ![Angular Material Daterange-Picker](./reference-images/Angular-Material_Daterange-Picker.png)
 - remove timestamp from vue daterange picker input
+- the entirety of the styling of the reworked [DateRangePicker.vue](../MSE26-HotelCopyCat-Frontend/src/components/date/DateRangePicker.vue) component was done via AI
+  - done so since the single datepicker was more of a UX/QOL addition to the code, and it had also worked before the rework
+  - tedious task of adapting the style to fit ionics (in light/dark mode)
