@@ -1,10 +1,18 @@
 export interface Room {
     id: number
-    title: string
+    name: string
     description: string
-    imagePath: string
     extras: RoomExtra[]
     available?: boolean
+}
+
+export function getRoomImageUrl(id: number): string {
+    return new URL(`../images/rooms/${id}.jpg`, import.meta.url).href
+}
+
+export function getExtraIconUrl(iconPath: string): string {
+    const filename = iconPath.split('/').pop() ?? 'wifi.png'
+    return new URL(`../images/icons/${filename}`, import.meta.url).href
 }
 
 export interface RoomExtra {
