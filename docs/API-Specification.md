@@ -4,9 +4,9 @@
 
 | Method | Path                       | Description                      | Auth Required |
 |--------|----------------------------|----------------------------------|---------------|
-| GET    | /rooms                     | List all rooms (paginated)       | No            |
-| GET    | /rooms/{id}                | Get room details                 | No            |
-| GET    | /rooms/{id}/availability   | Check room availability          | No            |
+| GET    | /api/v1/room-types         | List all room types (paginated)  | No            |
+| GET    | /api/v1/room-types/{id}    | Get room type details            | No            |
+| GET    | /api/v1/room-types/{id}/availability | Check room type availability | No            |
 | POST   | /bookings                  | Create a booking                 | No            |
 | GET    | /bookings/{id}             | Get booking details              | No            |
 | POST   | /guests                    | Register a new guest             | No            |
@@ -15,18 +15,18 @@
 
 ---
 
-## Rooms
+## Room Types
 
-### GET /rooms
+### GET /api/v1/room-types
 
-Returns a paginated list of all rooms including their extras.
+Returns a paginated list of all room types including their extras.
 
 **Query Parameters**
 
 | Parameter | Type    | Default | Description                    |
 |-----------|---------|---------|--------------------------------|
 | page      | integer | 0       | Page index (0-based)           |
-| size      | integer | 5       | Number of rooms per page       |
+| size      | integer | 5       | Number of room types per page  |
 
 **Response `200 OK`**
 
@@ -35,12 +35,12 @@ Returns a paginated list of all rooms including their extras.
   "content": [
     {
       "id": 1,
-      "title": "Deluxe Suite",
+      "name": "Deluxe Suite",
       "description": "A spacious suite with a view of the city.",
-      "imageUrl": "/images/rooms/1.jpg",
+      "imagePath": "/images/rooms/1.jpg",
       "extras": [
-        { "id": 1, "name": "WiFi", "icon": "wifi" },
-        { "id": 2, "name": "Breakfast", "icon": "coffee" }
+        { "name": "WiFi", "iconPath": "/images/extras/wifi.svg" },
+        { "name": "Breakfast", "iconPath": "/images/extras/breakfast.svg" }
       ]
     }
   ],
@@ -53,27 +53,27 @@ Returns a paginated list of all rooms including their extras.
 
 ---
 
-### GET /rooms/{id}
+### GET /api/v1/room-types/{id}
 
-Returns the full details of a single room including all extras.
+Returns the full details of a single room type including all extras.
 
 **Path Parameters**
 
 | Parameter | Type    | Description |
 |-----------|---------|-------------|
-| id        | integer | Room ID     |
+| id        | integer | Room type ID |
 
 **Response `200 OK`**
 
 ```json
 {
   "id": 1,
-  "title": "Deluxe Suite",
+  "name": "Deluxe Suite",
   "description": "A spacious suite with a view of the city.",
-  "imageUrl": "/images/rooms/1.jpg",
+  "imagePath": "/images/rooms/1.jpg",
   "extras": [
-    { "id": 1, "name": "WiFi", "icon": "wifi" },
-    { "id": 2, "name": "Breakfast", "icon": "coffee" }
+    { "name": "WiFi", "iconPath": "/images/extras/wifi.svg" },
+    { "name": "Breakfast", "iconPath": "/images/extras/breakfast.svg" }
   ]
 }
 ```
@@ -90,35 +90,35 @@ Returns the full details of a single room including all extras.
 
 ---
 
-### GET /rooms/{id}/availability
+### GET /api/v1/room-types/{id}/availability
 
-Checks whether a room is available for a given period.
+Checks whether at least one room of the requested room type is available for a given period.
 
 **Path Parameters**
 
-| Parameter | Type    | Description |
-|-----------|---------|-------------|
-| id        | integer | Room ID     |
+| Parameter | Type    | Description   |
+|-----------|---------|---------------|
+| id        | integer | Room type ID  |
 
 **Query Parameters**
 
-| Parameter | Type              | Required | Description                     |
-|-----------|-------------------|----------|---------------------------------|
-| checkIn   | date (YYYY-MM-DD) | Yes      | Requested check-in date         |
-| checkOut  | date (YYYY-MM-DD) | Yes      | Requested check-out date        |
+| Parameter | Type              | Required | Description              |
+|-----------|-------------------|----------|--------------------------|
+| checkIn   | date (YYYY-MM-DD) | Yes      | Requested check-in date  |
+| checkOut  | date (YYYY-MM-DD) | Yes      | Requested check-out date |
 
 **Response `200 OK`**
 
 ```json
 {
-  "roomId": 1,
+  "roomTypeId": 1,
   "checkIn": "2026-07-01",
   "checkOut": "2026-07-05",
   "available": true
 }
 ```
 
-**Response `400 Bad Request`** (invalid or missing parameters)
+**Response `400 Bad Request`**
 
 ```json
 {
@@ -134,7 +134,7 @@ Checks whether a room is available for a given period.
 {
   "status": 404,
   "error": "Not Found",
-  "message": "Room with id 99 not found"
+  "message": "Room type with id 99 not found"
 }
 ```
 
@@ -151,7 +151,7 @@ Creates a new booking. Can be submitted by an unauthenticated guest or a registe
 
 ```json
 {
-  "roomId": 1,
+  "roomTypeId": 1,
   "checkIn": "2026-07-01",
   "checkOut": "2026-07-05",
   "firstName": "Max",
@@ -165,7 +165,7 @@ Creates a new booking. Can be submitted by an unauthenticated guest or a registe
 
 | Field        | Type    | Required | Description                                        |
 |--------------|---------|----------|----------------------------------------------------|
-| roomId       | integer | Yes      | ID of the room to book                             |
+| roomTypeId   | integer | Yes      | ID of the room type to book                        |
 | checkIn      | date    | Yes      | Check-in date (YYYY-MM-DD)                         |
 | checkOut     | date    | Yes      | Check-out date (YYYY-MM-DD), must be after checkIn |
 | firstName    | string  | Yes      | Guest first name                                   |
@@ -180,13 +180,13 @@ Creates a new booking. Can be submitted by an unauthenticated guest or a registe
 ```json
 {
   "id": 42,
-  "room": {
+  "roomType": {
     "id": 1,
-    "title": "Deluxe Suite",
+    "name": "Deluxe Suite",
     "description": "A spacious suite with a view of the city.",
-    "imageUrl": "/images/rooms/1.jpg",
+    "imagePath": "/images/rooms/1.jpg",
     "extras": [
-      { "id": 1, "name": "WiFi", "icon": "wifi" }
+      { "name": "WiFi", "iconPath": "/images/extras/wifi.svg" }
     ]
   },
   "checkIn": "2026-07-01",
@@ -216,7 +216,7 @@ Creates a new booking. Can be submitted by an unauthenticated guest or a registe
 {
   "status": 409,
   "error": "Conflict",
-  "message": "Room 1 is not available from 2026-07-01 to 2026-07-05"
+  "message": "No room of type 1 is available from 2026-07-01 to 2026-07-05"
 }
 ```
 
@@ -356,13 +356,13 @@ Returns all bookings belonging to a registered guest. Requires authentication.
 [
   {
     "id": 42,
-    "room": {
+    "roomType": {
       "id": 1,
-      "title": "Deluxe Suite",
+      "name": "Deluxe Suite",
       "description": "A spacious suite with a view of the city.",
-      "imageUrl": "/images/rooms/1.jpg",
+      "imagePath": "/images/rooms/1.jpg",
       "extras": [
-        { "id": 1, "name": "WiFi", "icon": "wifi" }
+        { "name": "WiFi", "iconPath": "/images/extras/wifi.svg" }
       ]
     },
     "checkIn": "2026-07-01",

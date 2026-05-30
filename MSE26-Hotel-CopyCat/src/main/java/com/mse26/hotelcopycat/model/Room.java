@@ -1,0 +1,25 @@
+package com.mse26.hotelcopycat.model;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+
+@Entity
+@Table(name = "rooms")
+public class Room {
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Getter
+    @Column(name = "room_nr")
+    private String roomNr;
+
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "id_room_types")
+    private RoomType roomType;
+
+    public Room() {}
+}

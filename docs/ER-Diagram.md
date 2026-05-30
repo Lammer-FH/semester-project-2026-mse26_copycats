@@ -15,20 +15,20 @@ erDiagram
 
     room_types {
         BIGINT id PK
-        VARCHAR title
-        TEXT description
-        VARCHAR image_file_name
-    }
-
-    extras {
-        BIGINT id PK
         VARCHAR name
-        VARCHAR icon
+        TEXT description
+        VARCHAR image_path
     }
 
     room_extras {
-        BIGINT room_id FK
-        BIGINT extra_id FK
+        BIGINT id PK
+        VARCHAR name
+        VARCHAR icon_path
+    }
+
+    room_type_room_extras {
+        BIGINT room_type_id FK
+        BIGINT room_extra_id FK
     }
 
     bookings {
@@ -42,9 +42,9 @@ erDiagram
         DATETIME created_at
     }
 
-    rooms ||--o{ room_extras : "has"
     rooms }o--|| room_types : "has"
-    extras ||--o{ room_extras : "belongs to"
+    room_types ||--o{ room_type_room_extras : "has"
+    room_extras ||--o{ room_type_room_extras : "belongs to"
     rooms ||--o{ bookings : "booked via"
     guests ||--o{ bookings : "makes"
 ```
