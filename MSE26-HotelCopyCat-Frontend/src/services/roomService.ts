@@ -1,9 +1,4 @@
 import api from './api'
-import classicDouble from '@/images/rooms/classic-double.jpg'
-import classicKing from '@/images/rooms/classic-king.jpg'
-import suiteDouble from '@/images/rooms/suite-double.jpg'
-import suiteKing from '@/images/rooms/suite-king.jpg'
-import presidentialSuite from '@/images/rooms/presidential-suite.jpg'
 
 import spa from '@/images/icons/spa.png'
 import minibar from '@/images/icons/bar.png'
@@ -25,7 +20,6 @@ export default {
           id: 0,
           name: 'Classic Double',
           description: 'Cozy room with double bed',
-          imagePath: classicDouble,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi }
           ]
@@ -34,7 +28,6 @@ export default {
           id: 1,
           name: 'Classic Double Sea View',
           description: 'Cozy room with double bed and sea view',
-          imagePath: classicDouble,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar }
@@ -44,7 +37,6 @@ export default {
           id: 2,
           name: 'Classic King',
           description: 'Spacious room with king bed',
-          imagePath: classicKing,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar }
@@ -54,7 +46,6 @@ export default {
           id: 3,
           name: 'Classic King Sea View',
           description: 'Spacious room with king bed and sea view',
-          imagePath: classicKing,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar }
@@ -64,7 +55,6 @@ export default {
           id: 4,
           name: 'Suite Double',
           description: 'Luxury suite with double bed',
-          imagePath: suiteDouble,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar }
@@ -74,7 +64,6 @@ export default {
           id: 5,
           name: 'Suite Double Sea View',
           description: 'Luxury suite with double bed and sea view',
-          imagePath: suiteDouble,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar }
@@ -84,7 +73,6 @@ export default {
           id: 6,
           name: 'Suite King',
           description: 'Luxury suite with king bed',
-          imagePath: suiteKing,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar },
@@ -95,7 +83,6 @@ export default {
           id: 7,
           name: 'Suite King Sea View',
           description: 'Luxury suite with king bed and sea view',
-          imagePath: suiteKing,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar },
@@ -106,7 +93,6 @@ export default {
           id: 8,
           name: 'Presidential Suite',
           description: 'Ultimate Presidential Suite with king bed',
-          imagePath: presidentialSuite,
           extras: [
             { id: 1, name: 'WiFi', iconPath: wifi },
             { id: 2, name: 'Minibar', iconPath: minibar },

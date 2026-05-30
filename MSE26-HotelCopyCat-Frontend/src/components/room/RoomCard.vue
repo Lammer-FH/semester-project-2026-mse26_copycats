@@ -2,7 +2,7 @@
 
   <ion-card :class="['room-card', { disabled }]" @click="!disabled && goToDetail()">
 
-    <img :src="room.imagePath" class="room-image" :alt="room.name" />
+    <img :src="getRoomImageUrl(room.id)" class="room-image" :alt="room.name" />
 
     <ion-card-header>
 
@@ -34,6 +34,7 @@ import {
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 
 import type { Room } from '@/models/Room'
+import { getRoomImageUrl } from '@/models/Room'
 
 export default {
   name: 'RoomCard',
@@ -58,6 +59,7 @@ export default {
   },
 
   methods: {
+    getRoomImageUrl,
     goToDetail() {
       this.$router.push({ name: 'RoomDetail', params: { id: this.room.id } })
     }

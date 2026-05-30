@@ -2,9 +2,12 @@ export interface Room {
     id: number
     name: string
     description: string
-    imagePath: string
     extras: RoomExtra[]
     available?: boolean
+}
+
+export function getRoomImageUrl(id: number): string {
+    return new URL(`../images/rooms/${id}.jpg`, import.meta.url).href
 }
 
 export interface RoomExtra {

@@ -12,7 +12,7 @@
 
     <ion-content>
       <div v-if="room" class="detail-container">
-        <img :src="room.imagePath" :alt="room.name" class="room-image" />
+        <img :src="getRoomImageUrl(room.id)" :alt="room.name" class="room-image" />
 
         <div class="detail-content">
           <h1 class="room-title">{{ room.name }}</h1>
@@ -46,6 +46,7 @@ import {
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 import roomService from '@/services/roomService'
 import type { Room } from '@/models/Room'
+import { getRoomImageUrl } from '@/models/Room'
 
 export default {
   name: 'RoomDetailPage',
@@ -72,6 +73,10 @@ export default {
   async created() {
     const id = Number(this.$route.params.id)
     this.room = await roomService.getRoomTypeById(id)
+  },
+
+  methods: {
+    getRoomImageUrl
   }
 }
 </script>
