@@ -1,8 +1,8 @@
 <template>
 
-  <ion-card :class="{ disabled }">
+  <ion-card :class="['room-card', { disabled }]" @click="!disabled && goToDetail()">
 
-    <img :src="room.imagePath" class="room-image" />
+    <img :src="room.imagePath" class="room-image" :alt="room.title" />
 
     <ion-card-header>
 
@@ -16,15 +16,7 @@
 
       <p>{{ room.description }}</p>
 
-      <div class="extras">
-        <img
-          v-for="extra in room.extras"
-          :key="extra.id"
-          :src="extra.iconPath"
-          class="extra-icon"
-          :title="extra.name"
-        />
-      </div>
+      <RoomExtrasList :extras="room.extras" class="extras" />
 
     </ion-card-content>
 
@@ -39,6 +31,7 @@ import {
   IonCardHeader,
   IonCardTitle
 } from '@ionic/vue'
+import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 
 import type { Room } from '@/models/Room'
 
@@ -49,7 +42,8 @@ export default {
     IonCard,
     IonCardContent,
     IonCardHeader,
-    IonCardTitle
+    IonCardTitle,
+    RoomExtrasList
   },
 
   props: {
@@ -60,6 +54,12 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    }
+  },
+
+  methods: {
+    goToDetail() {
+      this.$router.push({ name: 'RoomDetail', params: { id: this.room.id } })
     }
   }
 }
@@ -75,11 +75,11 @@ export default {
 }
 
 ion-card {
-  background: #d3d3d3;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 /* hover effect for desktop */
@@ -91,25 +91,16 @@ ion-card:hover {
 ion-card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #222;
+  color: var(--ion-text-color);
 }
 
 ion-card-content {
-  color: #555;
+  color: var(--ion-color-medium);
   font-size: 0.9rem;
 }
 
 .extras {
-  display: flex;
-  gap: 8px;
   margin-top: 12px;
-  flex-wrap: wrap;
-}
-
-.extra-icon {
-  width: 22px;
-  height: 22px;
-  opacity: 0.85;
 }
 
 .disabled {
