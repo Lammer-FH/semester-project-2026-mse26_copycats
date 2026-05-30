@@ -13,3 +13,4 @@ Claude Sonnet 4.6:
 Claude Sonnet 4.6:
 - ![console error log](./reference-images/CORS-error.png)
 - added [WebConfig.java](../MSE26-Hotel-CopyCat/src/main/java/com/mse26/hotelcopycat/config/WebConfig.java)
+- move multiple CORS allowedOrigins into application.properties
