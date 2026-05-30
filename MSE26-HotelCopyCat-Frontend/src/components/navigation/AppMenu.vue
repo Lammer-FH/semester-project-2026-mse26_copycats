@@ -11,21 +11,29 @@
 
       <ion-list>
 
-        <ion-item router-link="/home">
-          Home
-        </ion-item>
+        <ion-menu-toggle :auto-hide="true">
+          <ion-item router-link="/home">
+            Home
+          </ion-item>
+        </ion-menu-toggle>
 
-        <ion-item router-link="/rooms">
-          Rooms
-        </ion-item>
+        <ion-menu-toggle :auto-hide="true">
+          <ion-item router-link="/rooms">
+            Rooms
+          </ion-item>
+        </ion-menu-toggle>
 
-        <ion-item router-link="/about">
-          About
-        </ion-item>
+        <ion-menu-toggle :auto-hide="true">
+          <ion-item router-link="/about">
+            About
+          </ion-item>
+        </ion-menu-toggle>
 
-        <ion-item router-link="/imprint">
-          Imprint
-        </ion-item>
+        <ion-menu-toggle :auto-hide="true">
+          <ion-item router-link="/imprint">
+            Imprint
+          </ion-item>
+        </ion-menu-toggle>
 
       </ion-list>
 
@@ -35,13 +43,13 @@
 </template>
 
 <script setup lang="ts">
-    import {
-    IonMenu,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonList,
-    IonItem
-    } from '@ionic/vue'
+import {
+  IonMenu,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonList,
+  IonItem
+} from '@ionic/vue'
 </script>
