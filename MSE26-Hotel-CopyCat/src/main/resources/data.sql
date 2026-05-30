@@ -1,7 +1,13 @@
 INSERT IGNORE INTO room_types (id, name, description, image_path) VALUES
-    (1, 'Deluxe Suite', 'A spacious suite with a view of the city.', '/images/rooms/1.jpg'),
-    (2, 'Family Room', 'A comfortable room for families with additional sleeping space.', '/images/rooms/2.jpg'),
-    (3, 'Business Room', 'A quiet room tailored for work trips and short stays.', '/images/rooms/3.jpg');
+    (1, 'Classic Double', 'Cozy room with double bed', '/images/rooms/1.jpg'),
+    (2, 'Classic Double Sea View', 'Cozy room with double bed and sea view', '/images/rooms/2.jpg'),
+    (3, 'Classic King', 'Spacious room with king bed', '/images/rooms/3.jpg'),
+    (4, 'Classic King Sea View', 'Spacious room with king bed and sea view', '/images/rooms/4.jpg'),
+    (5, 'Suite Double', 'Luxury suite with double bed', '/images/rooms/5.jpg'),
+    (6, 'Suite Double Sea View', 'Luxury suite with double bed and sea view', '/images/rooms/6.jpg'),
+    (7, 'Suite King', 'Luxury suite with king bed', '/images/rooms/7.jpg'),
+    (8, 'Suite King Sea View', 'Luxury suite with king bed and sea view', '/images/rooms/8.jpg'),
+    (9, 'Presidential Suite', 'Ultimate Presidential Suite with king bed', '/images/rooms/9.jpg');
 
 INSERT IGNORE INTO room_extras (id, name, icon_path) VALUES
     (1, 'WiFi', '/images/icons/wifi.png'),
@@ -12,22 +18,31 @@ INSERT IGNORE INTO room_extras (id, name, icon_path) VALUES
     (6, 'Spa Access', '/images/icons/spa.png');
 
 INSERT IGNORE INTO room_type_room_extras (id_room_types, id_room_extras) VALUES
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (1, 2),
-    (2, 1),
-    (2, 2),
-    (2, 4),
-    (3, 1),
-    (3, 3);
+    (1, 1), (1, 2), (1, 3),
+    (2, 1), (2, 4), (2, 5),
+    (3, 1), (3, 2), (3, 5),
+    (4, 1), (4, 4), (4, 5),
+    (5, 1), (5, 2), (5, 5),
+    (6, 1), (6, 4), (6, 5),
+    (7, 1), (7, 3), (7, 5), (7, 6),
+    (8, 1), (8, 4), (8, 5), (8, 6),
+    (9, 1), (9, 2), (9, 3), (9, 5), (9, 6);
 
 INSERT IGNORE INTO rooms (id, room_nr, id_room_types) VALUES
     (1, '101', 1),
     (2, '102', 1),
     (3, '201', 2),
     (4, '202', 2),
-    (5, '301', 3);
+    (5, '301', 3),
+    (6, '302', 3),
+    (7, '401', 4),
+    (8, '501', 5),
+    (9, '502', 5),
+    (10, '601', 6),
+    (11, '701', 7),
+    (12, '702', 7),
+    (13, '801', 8),
+    (14, '901', 9);
 
 INSERT IGNORE INTO bookings (id, room_id, check_in, check_out) VALUES
     (1, 1, '2026-07-01', '2026-07-05'),
