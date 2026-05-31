@@ -10,6 +10,12 @@ docker compose up -d
 Connect to DB:
 ```
 docker exec -it hotelcopycat-mysql mysql -u hoteluser -p hotelcopycat
+```
+
+## Start Backend
+```
+$ mvn spring-boot:run 
+```
 
 ## Ionic Vue Frontend
 - cd MSE26-HotelCopyCat-Frontend
