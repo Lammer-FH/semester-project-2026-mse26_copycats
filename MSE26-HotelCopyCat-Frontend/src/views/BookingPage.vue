@@ -16,56 +16,68 @@
           <p>Loading booking details...</p>
         </div>
 
-        <div v-else-if="bookingPeriodStore.isValidPeriod && guestBookingStore.hasRoom" class="booking-layout">
-          <BookingSummaryCard
-            :room="guestBookingStore.room"
-            :period-label="periodLabel"
-            :duration-in-days="bookingPeriodStore.durationInDays"
-          />
+        <ion-grid v-else-if="bookingPeriodStore.isValidPeriod && guestBookingStore.hasRoom" class="booking-layout">
+          <ion-row>
+            <ion-col size="12" size-lg="4">
+              <BookingSummaryCard
+                :room="guestBookingStore.room"
+                :period-label="periodLabel"
+                :duration-in-days="bookingPeriodStore.durationInDays"
+              />
+            </ion-col>
 
-          <BookingGuestForm
-            v-if="guestBookingStore.step === 'form'"
-            :form="guestBookingStore.form"
-            :errors="guestBookingStore.errors"
-            :submit-error="guestBookingStore.submitError"
-            @update-booking-field="updateBookingField"
-            @validate-booking-field="validateBookingField"
-            @review-booking="reviewBooking"
-          />
+            <ion-col size="12" size-lg="8">
+              <BookingGuestForm
+                v-if="guestBookingStore.step === 'form'"
+                :form="guestBookingStore.form"
+                :errors="guestBookingStore.errors"
+                :submit-error="guestBookingStore.submitError"
+                @update-booking-field="updateBookingField"
+                @validate-booking-field="validateBookingField"
+                @review-booking="reviewBooking"
+              />
 
-          <BookingReviewCard
-            v-else-if="guestBookingStore.step === 'review'"
-            :room="guestBookingStore.room"
-            :form="guestBookingStore.form"
-            :period-label="periodLabel"
-            :duration-in-days="bookingPeriodStore.durationInDays"
-            :submit-error="guestBookingStore.submitError"
-            :submitting="guestBookingStore.submitting"
-            @edit-booking="guestBookingStore.goToForm()"
-            @confirm-booking="confirmBooking"
-          />
+              <BookingReviewCard
+                v-else-if="guestBookingStore.step === 'review'"
+                :room="guestBookingStore.room"
+                :form="guestBookingStore.form"
+                :period-label="periodLabel"
+                :duration-in-days="bookingPeriodStore.durationInDays"
+                :submit-error="guestBookingStore.submitError"
+                :submitting="guestBookingStore.submitting"
+                @edit-booking="guestBookingStore.goToForm()"
+                @confirm-booking="confirmBooking"
+              />
 
-          <BookingConfirmationCard
-            v-else-if="guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation"
-            :confirmation="guestBookingStore.confirmation"
-          />
-        </div>
+              <BookingConfirmationCard
+                v-else-if="guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation"
+                :confirmation="guestBookingStore.confirmation"
+              />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
-        <div v-else class="message-card">
-          <h1>Booking not ready</h1>
-          <p v-if="guestBookingStore.roomLoadError">
-            {{ guestBookingStore.roomLoadError }}
-          </p>
-          <p v-else-if="!bookingPeriodStore.isValidPeriod">
-            Please select a valid booking period before continuing.
-          </p>
-          <p v-else>
-            The selected room could not be loaded.
-          </p>
-          <ion-button router-link="/rooms" class="action-button">
-            Back to rooms
-          </ion-button>
-        </div>
+        <ion-grid v-else>
+          <ion-row>
+            <ion-col size="12" size-lg="8" offset-lg="2">
+              <div class="message-card">
+                <h1>Booking not ready</h1>
+                <p v-if="guestBookingStore.roomLoadError">
+                  {{ guestBookingStore.roomLoadError }}
+                </p>
+                <p v-else-if="!bookingPeriodStore.isValidPeriod">
+                  Please select a valid booking period before continuing.
+                </p>
+                <p v-else>
+                  The selected room could not be loaded.
+                </p>
+                <ion-button router-link="/rooms" class="action-button">
+                  Back to rooms
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </div>
     </ion-content>
   </ion-page>
@@ -80,6 +92,9 @@ import {
   IonBackButton,
   IonTitle,
   IonContent,
+  IonGrid,
+  IonRow,
+  IonCol,
   IonButton,
   IonSpinner
 } from '@ionic/vue'
@@ -101,6 +116,9 @@ export default {
     IonBackButton,
     IonTitle,
     IonContent,
+    IonGrid,
+    IonRow,
+    IonCol,
     IonButton,
     IonSpinner,
     BookingSummaryCard,
@@ -170,8 +188,6 @@ export default {
 }
 
 .booking-layout {
-  display: grid;
-  gap: 16px;
   max-width: 920px;
   margin: 0 auto;
 }
