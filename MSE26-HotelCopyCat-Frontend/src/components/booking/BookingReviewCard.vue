@@ -20,11 +20,6 @@
         <p>Breakfast: {{ form.breakfast ? 'Yes' : 'No' }}</p>
       </div>
 
-      <div v-if="submitError" class="error-message" role="alert">
-        <strong>Booking could not be submitted.</strong>
-        <p>{{ submitError }}</p>
-      </div>
-
       <div class="button-row">
         <ion-button fill="outline" @click="$emit('edit-booking')">
           Edit details
@@ -82,10 +77,6 @@ export default {
       type: Number,
       default: 0
     },
-    submitError: {
-      type: String,
-      default: ''
-    },
     submitting: {
       type: Boolean,
       default: false
@@ -115,25 +106,6 @@ export default {
 .review-block p {
   margin: 0 0 6px;
   color: var(--ion-color-medium);
-}
-
-.error-message {
-  margin-top: 16px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(var(--ion-color-danger-rgb), 0.28);
-  background: rgba(var(--ion-color-danger-rgb), 0.08);
-  color: var(--ion-color-danger);
-}
-
-.error-message strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.error-message p {
-  margin: 0;
-  color: inherit;
 }
 
 .button-row {

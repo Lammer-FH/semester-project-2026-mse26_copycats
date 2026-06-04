@@ -46,7 +46,14 @@
       </div>
 
       <div v-else class="error-container">
-        <ion-text color="danger">Room not found.</ion-text>
+        <StatusCard
+          variant="error"
+          subtitle="Room unavailable"
+          title="Room not found"
+          message="The selected room could not be loaded."
+          action-label="Back to rooms"
+          action-route="/rooms"
+        />
       </div>
 
     </ion-content>
@@ -70,6 +77,7 @@ import {
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 import AvailabilityBadge from '@/components/common/AvailabilityBadge.vue'
+import StatusCard from '@/components/common/StatusCard.vue'
 import roomService from '@/services/roomService'
 import type { Room } from '@/models/Room'
 import { getRoomImageUrl } from '@/models/Room'
@@ -91,7 +99,8 @@ export default {
     IonButton,
     IonSpinner,
     RoomExtrasList,
-    AvailabilityBadge
+    AvailabilityBadge,
+    StatusCard
   },
 
   data() {
@@ -164,6 +173,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 60vh;
+  padding: 16px;
 }
 
 .room-image {

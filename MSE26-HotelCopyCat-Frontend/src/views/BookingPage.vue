@@ -23,6 +23,19 @@
           </ion-card-content>
         </ion-card>
 
+        <StatusCard
+          v-if="guestBookingStore.submitError"
+          variant="error"
+          subtitle="Error"
+          title="Booking could not be submitted"
+          :message="guestBookingStore.submitError"
+        />
+
+        <BookingConfirmationCard
+          v-else-if="guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation"
+          :confirmation="guestBookingStore.confirmation"
+        />
+
         <ion-grid v-else-if="bookingPeriodStore.isValidPeriod && guestBookingStore.hasRoom" class="booking-layout">
           <ion-row>
             <ion-col size="12" size-lg="4">
@@ -38,7 +51,6 @@
                 v-if="guestBookingStore.step === 'form'"
                 :form="guestBookingStore.form"
                 :errors="guestBookingStore.errors"
-                :submit-error="guestBookingStore.submitError"
                 @update-booking-field="updateBookingField"
                 @validate-booking-field="validateBookingField"
                 @review-booking="reviewBooking"
@@ -50,15 +62,9 @@
                 :form="guestBookingStore.form"
                 :period-label="periodLabel"
                 :duration-in-days="bookingPeriodStore.durationInDays"
-                :submit-error="guestBookingStore.submitError"
                 :submitting="guestBookingStore.submitting"
                 @edit-booking="guestBookingStore.goToForm()"
                 @confirm-booking="confirmBooking"
-              />
-
-              <BookingConfirmationCard
-                v-else-if="guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation"
-                :confirmation="guestBookingStore.confirmation"
               />
             </ion-col>
           </ion-row>
@@ -67,27 +73,14 @@
         <ion-grid v-else>
           <ion-row>
             <ion-col size="12" size-lg="8" offset-lg="2">
-              <ion-card class="message-card">
-                <ion-card-header>
-                  <ion-card-subtitle>Booking not available</ion-card-subtitle>
-                  <ion-card-title>Booking not ready</ion-card-title>
-                </ion-card-header>
-
-                <ion-card-content>
-                  <p v-if="guestBookingStore.roomLoadError">
-                    {{ guestBookingStore.roomLoadError }}
-                  </p>
-                  <p v-else-if="!bookingPeriodStore.isValidPeriod">
-                    Please select a valid booking period before continuing.
-                  </p>
-                  <p v-else>
-                    The selected room could not be loaded.
-                  </p>
-                  <ion-button router-link="/rooms" class="action-button">
-                    Back to rooms
-                  </ion-button>
-                </ion-card-content>
-              </ion-card>
+              <StatusCard
+                variant="error"
+                subtitle="Booking not available"
+                title="Booking not ready"
+                :message="roomStatusMessage"
+                action-label="Back to rooms"
+                action-route="/rooms"
+              />
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -122,6 +115,7 @@ import BookingSummaryCard from '@/components/booking/BookingSummaryCard.vue'
 import BookingGuestForm from '@/components/booking/BookingGuestForm.vue'
 import BookingReviewCard from '@/components/booking/BookingReviewCard.vue'
 import BookingConfirmationCard from '@/components/booking/BookingConfirmationCard.vue'
+import StatusCard from '@/components/common/StatusCard.vue'
 
 export default {
   name: 'BookingPage',
@@ -147,7 +141,8 @@ export default {
     BookingSummaryCard,
     BookingGuestForm,
     BookingReviewCard,
-    BookingConfirmationCard
+    BookingConfirmationCard,
+    StatusCard
   },
 
   data() {
@@ -169,6 +164,18 @@ export default {
       }
 
       return `${this.formatDate(this.bookingPeriodStore.startDate)} - ${this.formatDate(this.bookingPeriodStore.endDate)}`
+    },
+
+    roomStatusMessage(): string {
+      if (this.guestBookingStore.roomLoadError) {
+        return this.guestBookingStore.roomLoadError
+      }
+
+      if (!this.bookingPeriodStore.isValidPeriod) {
+        return 'Please select a valid booking period before continuing.'
+      }
+
+      return 'The selected room could not be loaded.'
     }
   },
 
@@ -228,16 +235,6 @@ export default {
   align-items: center;
   gap: 12px;
   text-align: center;
-}
-
-.message-card h1 {
-  margin: 0 0 12px;
-  color: var(--ion-text-color);
-}
-
-.message-card p {
-  color: var(--ion-color-medium);
-  line-height: 1.6;
 }
 
 .action-button {

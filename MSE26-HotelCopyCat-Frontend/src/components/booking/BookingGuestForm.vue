@@ -74,11 +74,6 @@
         </ion-item>
       </ion-list>
 
-      <div v-if="submitError" class="error-message" role="alert">
-        <strong>Booking could not be prepared.</strong>
-        <p>{{ submitError }}</p>
-      </div>
-
       <ion-button expand="block" class="action-button" @click="$emit('review-booking')">
         Review booking
       </ion-button>
@@ -128,10 +123,6 @@ export default {
     errors: {
       type: Object as PropType<Record<string, string>>,
       required: true
-    },
-    submitError: {
-      type: String,
-      default: ''
     }
   },
 
@@ -188,25 +179,6 @@ export default {
 
 .toggle-field {
   margin-top: 8px;
-}
-
-.error-message {
-  margin-top: 16px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(var(--ion-color-danger-rgb), 0.28);
-  background: rgba(var(--ion-color-danger-rgb), 0.08);
-  color: var(--ion-color-danger);
-}
-
-.error-message strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.error-message p {
-  margin: 0;
-  color: inherit;
 }
 
 .action-button {
