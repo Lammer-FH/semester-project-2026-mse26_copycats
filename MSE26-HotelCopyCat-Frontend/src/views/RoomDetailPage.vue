@@ -27,7 +27,7 @@
                 <ion-spinner v-if="availabilityLoading" name="crescent" />
                 <template v-else-if="availability !== null">
                   <AvailabilityBadge :available="availability" />
-                  <ion-button :disabled="!availability" expand="block" class="book-button">
+                  <ion-button :disabled="!availability" expand="block" class="book-button" @click="goToBooking">
                     Book now
                   </ion-button>
                 </template>
@@ -137,6 +137,14 @@ export default {
       } finally {
         this.availabilityLoading = false
       }
+    },
+
+    goToBooking() {
+      if (!this.room || !this.availability) {
+        return
+      }
+
+      this.$router.push({ name: 'Booking', params: { id: this.room.id } })
     },
 
     formatDate(dateStr: string): string {

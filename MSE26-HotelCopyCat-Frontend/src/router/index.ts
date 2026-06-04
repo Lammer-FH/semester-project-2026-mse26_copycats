@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import HomePage from '../views/HomePage.vue'
 import RoomOverview from '../views/RoomOverview.vue'
 import RoomDetailPage from '../views/RoomDetailPage.vue'
+import BookingPage from '@/views/BookingPage.vue'
 import AboutPage from '@/views/AboutPage.vue';
 import ImprintPage from '@/views/ImprintPage.vue';
 
@@ -25,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/rooms/:id',
     name: 'RoomDetail',
     component: RoomDetailPage
+  },
+  {
+    path: '/rooms/:id/booking',
+    name: 'Booking',
+    component: BookingPage
   },
   {
     path: '/about',
