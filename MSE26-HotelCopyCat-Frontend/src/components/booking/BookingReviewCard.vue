@@ -6,6 +6,8 @@
     </ion-card-header>
 
     <ion-card-content>
+      <p class="intro">Review the details below before you confirm the booking.</p>
+
       <div class="review-block">
         <h3>Stay</h3>
         <p><strong>{{ room?.name }}</strong></p>
@@ -96,6 +98,12 @@ export default {
 
 .review-block + .review-block {
   margin-top: 20px;
+}
+
+.intro {
+  margin: 0 0 16px;
+  color: var(--ion-color-medium);
+  line-height: 1.6;
 }
 
 .review-block h3 {

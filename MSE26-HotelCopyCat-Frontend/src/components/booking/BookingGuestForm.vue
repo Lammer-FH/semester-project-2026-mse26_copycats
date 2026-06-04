@@ -9,33 +9,35 @@
       <p class="required-hint">* Required field</p>
 
       <ion-list lines="none" class="booking-form">
-        <ion-item class="field">
+        <ion-item class="field" :class="{ 'field--invalid': !!errors.firstName }">
           <ion-input
             :value="form.firstName"
             label="First name *"
             label-placement="stacked"
             placeholder="Max"
             required
+            :aria-invalid="!!errors.firstName"
             @ionInput="emitFieldUpdate('firstName', $event)"
             @ionBlur="emitFieldValidationRequest('firstName')"
           />
         </ion-item>
-        <ion-note v-if="errors.firstName" color="danger">{{ errors.firstName }}</ion-note>
+        <ion-note v-if="errors.firstName" class="field-error" color="danger">{{ errors.firstName }}</ion-note>
 
-        <ion-item class="field">
+        <ion-item class="field" :class="{ 'field--invalid': !!errors.lastName }">
           <ion-input
             :value="form.lastName"
             label="Last name *"
             label-placement="stacked"
             placeholder="Mustermann"
             required
+            :aria-invalid="!!errors.lastName"
             @ionInput="emitFieldUpdate('lastName', $event)"
             @ionBlur="emitFieldValidationRequest('lastName')"
           />
         </ion-item>
-        <ion-note v-if="errors.lastName" color="danger">{{ errors.lastName }}</ion-note>
+        <ion-note v-if="errors.lastName" class="field-error" color="danger">{{ errors.lastName }}</ion-note>
 
-        <ion-item class="field">
+        <ion-item class="field" :class="{ 'field--invalid': !!errors.email }">
           <ion-input
             :value="form.email"
             type="email"
@@ -43,13 +45,14 @@
             label-placement="stacked"
             placeholder="max@example.com"
             required
+            :aria-invalid="!!errors.email"
             @ionInput="emitFieldUpdate('email', $event)"
             @ionBlur="emitFieldValidationRequest('email')"
           />
         </ion-item>
-        <ion-note v-if="errors.email" color="danger">{{ errors.email }}</ion-note>
+        <ion-note v-if="errors.email" class="field-error" color="danger">{{ errors.email }}</ion-note>
 
-        <ion-item class="field">
+        <ion-item class="field" :class="{ 'field--invalid': !!errors.confirmEmail }">
           <ion-input
             :value="form.confirmEmail"
             type="email"
@@ -57,11 +60,12 @@
             label-placement="stacked"
             placeholder="max@example.com"
             required
+            :aria-invalid="!!errors.confirmEmail"
             @ionInput="emitFieldUpdate('confirmEmail', $event)"
             @ionBlur="emitFieldValidationRequest('confirmEmail')"
           />
         </ion-item>
-        <ion-note v-if="errors.confirmEmail" color="danger">{{ errors.confirmEmail }}</ion-note>
+        <ion-note v-if="errors.confirmEmail" class="field-error" color="danger">{{ errors.confirmEmail }}</ion-note>
 
         <ion-item class="field toggle-field">
           <ion-toggle
@@ -175,6 +179,17 @@ export default {
   --inner-padding-end: 14px;
   margin-bottom: 12px;
   border-radius: 12px;
+}
+
+.field--invalid {
+  --background: rgba(var(--ion-color-danger-rgb), 0.06);
+  --border-color: rgba(var(--ion-color-danger-rgb), 0.45);
+}
+
+.field-error {
+  display: block;
+  margin: -4px 0 12px 14px;
+  font-size: 0.88rem;
 }
 
 .toggle-field {
