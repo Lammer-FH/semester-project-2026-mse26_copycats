@@ -11,10 +11,17 @@
 
     <ion-content>
       <div class="booking-page">
-        <div v-if="guestBookingStore.loadingRoom" class="message-card message-card-center">
-          <ion-spinner name="crescent" />
-          <p>Loading booking details...</p>
-        </div>
+        <ion-card v-if="guestBookingStore.loadingRoom" class="message-card message-card-center">
+          <ion-card-header>
+            <ion-card-subtitle>Loading</ion-card-subtitle>
+            <ion-card-title>Booking details</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-spinner name="crescent" />
+            <p>Loading booking details...</p>
+          </ion-card-content>
+        </ion-card>
 
         <ion-grid v-else-if="bookingPeriodStore.isValidPeriod && guestBookingStore.hasRoom" class="booking-layout">
           <ion-row>
@@ -60,21 +67,27 @@
         <ion-grid v-else>
           <ion-row>
             <ion-col size="12" size-lg="8" offset-lg="2">
-              <div class="message-card">
-                <h1>Booking not ready</h1>
-                <p v-if="guestBookingStore.roomLoadError">
-                  {{ guestBookingStore.roomLoadError }}
-                </p>
-                <p v-else-if="!bookingPeriodStore.isValidPeriod">
-                  Please select a valid booking period before continuing.
-                </p>
-                <p v-else>
-                  The selected room could not be loaded.
-                </p>
-                <ion-button router-link="/rooms" class="action-button">
-                  Back to rooms
-                </ion-button>
-              </div>
+              <ion-card class="message-card">
+                <ion-card-header>
+                  <ion-card-subtitle>Booking not available</ion-card-subtitle>
+                  <ion-card-title>Booking not ready</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                  <p v-if="guestBookingStore.roomLoadError">
+                    {{ guestBookingStore.roomLoadError }}
+                  </p>
+                  <p v-else-if="!bookingPeriodStore.isValidPeriod">
+                    Please select a valid booking period before continuing.
+                  </p>
+                  <p v-else>
+                    The selected room could not be loaded.
+                  </p>
+                  <ion-button router-link="/rooms" class="action-button">
+                    Back to rooms
+                  </ion-button>
+                </ion-card-content>
+              </ion-card>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -95,6 +108,11 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCardContent,
   IonButton,
   IonSpinner
 } from '@ionic/vue'
@@ -119,6 +137,11 @@ export default {
     IonGrid,
     IonRow,
     IonCol,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardContent,
     IonButton,
     IonSpinner,
     BookingSummaryCard,
@@ -193,9 +216,7 @@ export default {
 }
 
 .message-card {
-  padding: 24px;
   border-radius: 16px;
-  background: #fff;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
   max-width: 720px;
   margin: 0 auto;
