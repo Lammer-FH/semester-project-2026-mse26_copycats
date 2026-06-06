@@ -2,7 +2,6 @@ import axios from 'axios'
 import api from './api'
 import type { BookingRequest } from '@/models/BookingRequest'
 import type { BookingResponse } from '@/models/BookingResponse'
-import type { BookingRoomContext } from '@/models/BookingRoomContext'
 
 function getSafeBackendMessage(message: unknown) {
   if (typeof message !== 'string') {
@@ -20,8 +19,6 @@ function getSafeBackendMessage(message: unknown) {
 
 export default {
   async createBooking(
-    room: BookingRoomContext,
-    period: { checkIn: string, checkOut: string },
     request: BookingRequest
   ): Promise<BookingResponse> {
     try {

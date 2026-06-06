@@ -277,8 +277,6 @@ export const useGuestBookingStore = defineStore('guestBooking', {
 
       try {
         const response = await bookingService.createBooking(
-          this.getRequiredRoom(),
-          this.createBookingPeriodPayload(),
           this.createBookingRequest()
         )
 
