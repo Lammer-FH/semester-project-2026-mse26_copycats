@@ -10,9 +10,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.time.LocalDate;
@@ -21,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -28,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.mockito.ArgumentCaptor;
 
 @WebMvcTest(RoomTypeController.class)
+@Import(ApiExceptionHandler.class)
 class RoomTypeControllerTest {
 
     @Autowired
@@ -96,5 +100,29 @@ class RoomTypeControllerTest {
                 .andExpect(jsonPath("$.checkIn").value("2026-07-01"))
                 .andExpect(jsonPath("$.checkOut").value("2026-07-05"))
                 .andExpect(jsonPath("$.available").value(true));
+    }
+
+    @Test
+    void getAvailabilityReturnsDocumentedErrorForInvalidDateRange() throws Exception {
+        given(roomTypeService.getAvailability(1, LocalDate.of(2026, 7, 5), LocalDate.of(2026, 7, 1)))
+                .willThrow(new ResponseStatusException(BAD_REQUEST, "checkOut must be after checkIn"));
+
+        mockMvc.perform(get("/api/v1/room-types/1/availability")
+                        .param("checkIn", "2026-07-05")
+                        .param("checkOut", "2026-07-01"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.message").value("checkOut must be after checkIn"));
+    }
+
+    @Test
+    void getAvailabilityReturnsDocumentedErrorForMissingQueryParam() throws Exception {
+        mockMvc.perform(get("/api/v1/room-types/1/availability")
+                        .param("checkIn", "2026-07-01"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.message").exists());
     }
 }

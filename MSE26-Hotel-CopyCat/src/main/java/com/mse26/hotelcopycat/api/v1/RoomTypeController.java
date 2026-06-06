@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @RequestMapping("/api/v1/room-types")
@@ -35,8 +37,9 @@ public class RoomTypeController {
     }
 
     @GetMapping("/{id}")
-    public Optional<RoomTypeResponseDto> getRoomTypeById(@PathVariable int id) {
-        return service.findById(id);
+    public RoomTypeResponseDto getRoomTypeById(@PathVariable int id) {
+        return service.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Room type with id " + id + " not found"));
     }
 
     @GetMapping("/{id}/availability")

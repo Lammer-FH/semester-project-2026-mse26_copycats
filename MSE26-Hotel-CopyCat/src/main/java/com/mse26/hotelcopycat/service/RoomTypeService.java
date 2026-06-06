@@ -8,6 +8,7 @@ import com.mse26.hotelcopycat.repository.RoomTypeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
@@ -35,18 +36,18 @@ public class RoomTypeService {
         this.roomTypeMapper = roomTypeMapper;
     }
 
+    @Transactional(readOnly = true)
     public Page<RoomTypeResponseDto> findAll(Pageable pageable){
         return roomTypeRepository.findAllBy(pageable).map(roomTypeMapper::toResponseDto);
     }
 
+    @Transactional(readOnly = true)
     public Optional<RoomTypeResponseDto> findById(int id){
         return roomTypeRepository.findWithRoomAndRoomExtrasById(id).map(roomTypeMapper::toResponseDto);
     }
 
+    @Transactional(readOnly = true)
     public RoomTypeAvailabilityResponseDto getAvailability(int roomTypeId, LocalDate checkIn, LocalDate checkOut) {
-        if (checkIn == null || checkOut == null) {
-            throw new ResponseStatusException(BAD_REQUEST, "checkIn and checkOut are required");
-        }
         if (!checkOut.isAfter(checkIn)) {
             throw new ResponseStatusException(BAD_REQUEST, "checkOut must be after checkIn");
         }
