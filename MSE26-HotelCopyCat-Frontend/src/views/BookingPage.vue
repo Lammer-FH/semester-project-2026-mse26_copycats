@@ -24,7 +24,7 @@
         </ion-card>
 
         <StatusCard
-          v-if="guestBookingStore.submitError"
+          v-else-if="guestBookingStore.submitError"
           variant="error"
           subtitle="Error"
           title="Booking could not be submitted"
