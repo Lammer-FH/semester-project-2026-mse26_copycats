@@ -111,6 +111,15 @@ export default {
     await this.checkAvailability()
   },
 
+  watch: {
+    bookingStore: {
+      handler() {
+        this.checkAvailability()
+      },
+      deep: true
+    }
+  },
+
   methods: {
     getRoomImageUrl,
 
