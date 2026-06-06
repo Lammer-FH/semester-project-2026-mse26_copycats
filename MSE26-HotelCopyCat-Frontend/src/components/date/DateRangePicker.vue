@@ -59,8 +59,7 @@ export default {
     onUpdate(value: [Date, Date] | null) {
       this.localRange = value
       if (value && value[0] && value[1]) {
-        this.bookingStore.startDate = toIsoDate(value[0])
-        this.bookingStore.endDate = toIsoDate(value[1])
+        this.bookingStore.setBookingPeriod(toIsoDate(value[0]), toIsoDate(value[1]))
       } else if (!value) {
         this.bookingStore.clearBookingPeriod()
       }
