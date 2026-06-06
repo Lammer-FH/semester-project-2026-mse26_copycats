@@ -120,14 +120,6 @@ export default {
       },
       deep: true
     }
-
-  watch: {
-    bookingStore: {
-      handler() {
-        this.checkAvailability()
-      },
-      deep: true
-    }
   },
 
   methods: {
