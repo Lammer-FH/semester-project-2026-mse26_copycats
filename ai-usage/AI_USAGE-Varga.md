@@ -29,3 +29,7 @@ Claude Sonnet 4.6:
 - the entirety of the styling of the reworked [DateRangePicker.vue](../MSE26-HotelCopyCat-Frontend/src/components/date/DateRangePicker.vue) component was done via AI
   - done so since the single datepicker was more of a UX/QOL addition to the code, and it had also worked before the rework
   - tedious task of adapting the style to fit ionics (in light/dark mode)
+
+## Booking Button Bugfix
+Claude Sonnet 4.6:
+- asked to fix bug -> added bugfix

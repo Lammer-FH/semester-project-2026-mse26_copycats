@@ -110,6 +110,10 @@ export default {
     this.room = await roomService.getRoomTypeById(id)
     await this.checkAvailability()
   },
+    
+  async ionViewWillEnter() {
+    await this.checkAvailability()
+  },
 
   watch: {
     bookingStore: {
@@ -118,7 +122,6 @@ export default {
       },
       deep: true
     }
-  },
 
   methods: {
     getRoomImageUrl,
