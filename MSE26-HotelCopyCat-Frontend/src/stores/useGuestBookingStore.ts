@@ -222,8 +222,8 @@ export const useGuestBookingStore = defineStore('guestBooking', {
         checkOut: period.checkOut,
         firstName: this.form.firstName,
         lastName: this.form.lastName,
-        email: this.form.email,
-        confirmEmail: this.form.confirmEmail,
+        email: normalizeEmail(this.form.email),
+        confirmEmail: normalizeEmail(this.form.confirmEmail),
         breakfast: this.form.breakfast
       }
     },
