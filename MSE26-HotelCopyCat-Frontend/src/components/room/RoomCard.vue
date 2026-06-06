@@ -4,9 +4,7 @@
 
     <div class="image-wrapper">
       <img :src="getRoomImageUrl(room.id)" class="room-image" :alt="room.name" />
-      <ion-badge v-if="room.available !== undefined" :color="room.available ? 'success' : 'danger'" class="availability-badge">
-        {{ room.available ? 'Available' : 'Unavailable' }}
-      </ion-badge>
+      <AvailabilityBadge v-if="room.available !== undefined" :available="room.available" class="availability-badge" />
     </div>
 
     <ion-card-header>
@@ -34,10 +32,10 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardTitle,
-  IonBadge
+  IonCardTitle
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
+import AvailabilityBadge from '@/components/common/AvailabilityBadge.vue'
 
 import type { Room } from '@/models/Room'
 import { getRoomImageUrl } from '@/models/Room'
@@ -50,8 +48,8 @@ export default {
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
-    IonBadge,
-    RoomExtrasList
+    RoomExtrasList,
+    AvailabilityBadge
   },
 
   props: {
