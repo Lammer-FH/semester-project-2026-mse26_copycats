@@ -108,6 +108,18 @@ export default {
     this.room = await roomService.getRoomTypeById(id)
     await this.checkAvailability()
   },
+    
+  async ionViewWillEnter() {
+    await this.checkAvailability()
+  },
+
+  watch: {
+    bookingStore: {
+      handler() {
+        this.checkAvailability()
+      },
+      deep: true
+    }
 
   watch: {
     bookingStore: {
