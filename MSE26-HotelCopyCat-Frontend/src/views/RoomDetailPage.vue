@@ -26,9 +26,7 @@
               <div class="availability-status">
                 <ion-spinner v-if="availabilityLoading" name="crescent" />
                 <template v-else-if="availability !== null">
-                  <ion-badge :color="availability ? 'success' : 'danger'">
-                    {{ availability ? 'Available' : 'Not available' }}
-                  </ion-badge>
+                  <AvailabilityBadge :available="availability" />
                   <ion-button :disabled="!availability" expand="block" class="book-button">
                     Book now
                   </ion-button>
@@ -67,11 +65,11 @@ import {
   IonContent,
   IonLabel,
   IonText,
-  IonBadge,
   IonButton,
   IonSpinner
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
+import AvailabilityBadge from '@/components/common/AvailabilityBadge.vue'
 import roomService from '@/services/roomService'
 import type { Room } from '@/models/Room'
 import { getRoomImageUrl } from '@/models/Room'
@@ -90,10 +88,10 @@ export default {
     IonContent,
     IonLabel,
     IonText,
-    IonBadge,
     IonButton,
     IonSpinner,
-    RoomExtrasList
+    RoomExtrasList,
+    AvailabilityBadge
   },
 
   data() {
@@ -122,6 +120,7 @@ export default {
       },
       deep: true
     }
+  },
 
   methods: {
     getRoomImageUrl,

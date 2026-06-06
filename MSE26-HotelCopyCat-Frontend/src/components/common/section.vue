@@ -1,9 +1,8 @@
 <template>
   <section>
     <div class="section">
-      <h1 class="section-title"><b>{{title}}</b></h1>
-      <p class="section-text">{{text}}</p>
-      <p class="section-text">{{text1}}</p>
+      <h1 class="section-title"><b>{{ title }}</b></h1>
+      <slot />
     </div>
   </section>
 </template>
@@ -16,32 +15,24 @@ export default {
     title: {
       type: String,
       default: ''
-    },
-    text: {
-      type: String,
-      default: ''
-    },
-    text1: {
-      type: String,
-      default: ''
     }
   }
 }
 </script>
 
 <style scoped>
-.section{
+.section {
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
   background: var(--ion-color-light);
 }
 
-.section-title{
+.section-title {
   text-align: center;
   font-size: 2.5rem;
 }
 
-.section-text{
+:slotted(p) {
   text-align: center;
   line-height: 1.4;
   font-size: 1.2rem;

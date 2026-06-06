@@ -33,3 +33,9 @@ Claude Sonnet 4.6:
 ## Booking Button Bugfix
 Claude Sonnet 4.6:
 - asked to fix bug -> added bugfix
+
+## Add Components
+Claude Sonnet 4.6:
+- find code duplication for potential component-ification(?)
+- evaluate benefit of turning certain things into components
+  - e.g spinner, pagelayout, etc

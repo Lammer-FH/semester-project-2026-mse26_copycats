@@ -1,74 +1,51 @@
 <template>
-    <ion-page>
+    <PageLayout>
 
-        <NavBar />
+        <ion-row>
+            <h1>Available Rooms</h1>
+        </ion-row>
+        <ion-row>
+            <DateRangePicker />
+        </ion-row>
 
-        <ion-content>
+        <ion-row>
 
-            <ion-grid>
-                <ion-row>
-                    <h1>Available Rooms</h1>
-                </ion-row>
-                <ion-row>
-                    <DateRangePicker />
-                </ion-row>
+            <template v-if="!loading">
+                <ion-col v-for="room in rooms" :key="room.name" size="12" size-md="6" size-lg="5" size-xl="4">
+                    <RoomCard
+                      :room="room"
+                      :disabled="room.available === false"
+                    />
+                </ion-col>
+            </template>
+            <template v-if="loading">
+              <ion-col>
+                  <ion-spinner name="circles" />
+              </ion-col>
+            </template>
 
-                <ion-row>
+        </ion-row>
 
-                    <template v-if="!loading">
-                        <ion-col v-for="room in rooms" :key="room.name" size="12" size-md="6" size-lg="5" size-xl="4">
-                            <RoomCard
-                              :room="room"
-                              :disabled="room.available === false"
-                            />
-                        </ion-col>
-                    </template>
-                    <template v-if="loading">
-                      <ion-col>
-                          <ion-spinner name="circles" />
-                      </ion-col>
-                    </template>
+        <PaginationControls
+            :current-page="currentPage"
+            :total-pages="totalPages"
+            @previous="previousPage"
+            @next="nextPage"
+        />
 
-                </ion-row>
-
-                <ion-row>
-                    <ion-col>
-                        <ion-button :disabled="currentPage === 0" @click="previousPage">
-                            Previous
-                        </ion-button>
-
-                        <ion-text>
-                            Page {{ currentPage + 1 }} / {{ totalPages }}
-                        </ion-text>
-
-                        <ion-button :disabled="currentPage === totalPages - 1" @click="nextPage">
-                            Next
-                        </ion-button>
-                    </ion-col>
-
-                </ion-row>
-
-            </ion-grid>
-
-        </ion-content>
-
-    </ion-page>
+    </PageLayout>
 </template>
 
 <script lang="ts">
-import NavBar from '@/components/navigation/NavBar.vue'
+import PageLayout from '@/components/layout/PageLayout.vue'
 import RoomCard from '@/components/room/RoomCard.vue'
 import DateRangePicker from '@/components/date/DateRangePicker.vue'
+import PaginationControls from '@/components/common/PaginationControls.vue'
 import roomService from '@/services/roomService'
 import { useBookingPeriodStore } from '@/stores/useBookingPeriodStore'
 import {
-    IonPage,
-    IonContent,
-    IonGrid,
-    IonRow,
     IonCol,
-    IonButton,
-    IonText,
+    IonRow,
     IonSpinner
 } from '@ionic/vue'
 
@@ -80,17 +57,13 @@ export default {
     name: 'RoomOverview',
 
     components: {
-        NavBar,
-        IonPage,
-        IonContent,
-        IonGrid,
+        PageLayout,
         IonRow,
         IonCol,
-        IonButton,
-        IonText,
         IonSpinner,
         DateRangePicker,
-        RoomCard
+        RoomCard,
+        PaginationControls
     },
 
     data() {
