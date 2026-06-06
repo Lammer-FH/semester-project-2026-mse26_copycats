@@ -99,6 +99,7 @@ import {
   IonNote,
   IonButton
 } from '@ionic/vue'
+import type { InputCustomEvent, InputInputEventDetail } from '@ionic/vue'
 import type { PropType } from 'vue'
 import type { BookingForm } from '@/models/BookingForm'
 
@@ -133,11 +134,10 @@ export default {
   emits: ['update-booking-field', 'validate-booking-field', 'review-booking'],
 
   methods: {
-    emitFieldUpdate(field: string, event: Event) {
-      const target = event.target as HTMLInputElement | null
+    emitFieldUpdate(field: string, event: InputCustomEvent<InputInputEventDetail>) {
       this.$emit('update-booking-field', {
         field,
-        value: target?.value ?? ''
+        value: event.detail.value ?? ''
       })
     },
 
