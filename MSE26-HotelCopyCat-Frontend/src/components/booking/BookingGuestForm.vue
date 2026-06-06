@@ -15,6 +15,7 @@
             label="First name *"
             label-placement="stacked"
             placeholder="Max"
+            autocomplete="given-name"
             required
             :aria-invalid="!!errors.firstName"
             @ionInput="emitFieldUpdate('firstName', $event)"
@@ -29,6 +30,7 @@
             label="Last name *"
             label-placement="stacked"
             placeholder="Mustermann"
+            autocomplete="family-name"
             required
             :aria-invalid="!!errors.lastName"
             @ionInput="emitFieldUpdate('lastName', $event)"
@@ -44,6 +46,7 @@
             label="Email address *"
             label-placement="stacked"
             placeholder="max@example.com"
+            autocomplete="email"
             required
             :aria-invalid="!!errors.email"
             @ionInput="emitFieldUpdate('email', $event)"
@@ -59,6 +62,7 @@
             label="Confirm email address *"
             label-placement="stacked"
             placeholder="max@example.com"
+            autocomplete="off"
             required
             :aria-invalid="!!errors.confirmEmail"
             @ionInput="emitFieldUpdate('confirmEmail', $event)"
