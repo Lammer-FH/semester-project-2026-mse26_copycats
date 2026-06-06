@@ -111,6 +111,10 @@ export default {
     await this.checkAvailability()
   },
 
+  async ionViewWillEnter() {
+    await this.checkAvailability()
+  },
+
   methods: {
     getRoomImageUrl,
 
