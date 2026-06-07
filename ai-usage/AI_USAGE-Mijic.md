@@ -17,6 +17,6 @@ GPT-5.3
 
 ## Confirmation Page
 GPT-5.3
--
-
+- Multiple questions on how certain backend functions others wrote work (e.g. some of the functions in useGuestBookingStore that I needed)
+- (insert createbooking function) Where can I see the entire response? I want to see if roomtypeextras is a part of the response.
 - Please generate some directions for our hotel that's at Palmoria Bay Street 1/2/3; these directions are for the confirmation page after a booking.

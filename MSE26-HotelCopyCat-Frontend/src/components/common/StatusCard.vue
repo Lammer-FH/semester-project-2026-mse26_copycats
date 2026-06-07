@@ -15,6 +15,8 @@
           <p>{{ message }}</p>
         </slot>
       </div>
+      
+      <slot name="bookingDetails"/>
 
       <ion-button v-if="actionLabel" expand="block" class="action-button" :router-link="actionRoute">
         {{ actionLabel }}
