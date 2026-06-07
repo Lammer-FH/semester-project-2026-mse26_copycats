@@ -11,6 +11,12 @@ import java.time.Instant;
 
 @Component
 public class BookingMapper {
+    private final RoomTypeMapper roomTypeMapper;
+
+    public BookingMapper(RoomTypeMapper roomTypeMapper){
+        this.roomTypeMapper = roomTypeMapper;
+    }
+
     public Booking toEntity(
             BookingRequestDto dto,
             Room room,
@@ -33,7 +39,7 @@ public class BookingMapper {
     ){
         return BookingResponseDto.builder()
                 .id(booking.getId())
-                .roomType(booking.getRoom().getRoomType())
+                .roomType(roomTypeMapper.toResponseDto(booking.getRoom().getRoomType()))
                 .checkIn(booking.getCheckIn())
                 .checkOut(booking.getCheckOut())
                 .firstName(booking.getGuest().getFirstName())

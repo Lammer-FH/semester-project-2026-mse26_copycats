@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 public class BookingResponseDto {
     Integer id;
-    RoomType roomType;
+    RoomTypeResponseDto roomType;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate checkIn;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
