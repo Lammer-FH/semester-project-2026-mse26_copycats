@@ -28,15 +28,15 @@ export default {
     },
     address: {
       type: String,
-      default: 'AuroraHaven 1/2/3'
+      default: 'Palmoria Bay Street 1/2/3'
     },
     email: {
       type: String,
-      default: 'help@temp.pain'
+      default: 'copycathotel@mail.com'
     },
     phone: {
       type: String,
-      default: '+43 (0) 0000000'
+      default: '+00 (0) 0000000'
     }
   },
 
@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
 .site-footer {
-  margin-top: 4rem;
+  margin-top: 5rem;
   background: var(--ion-color-light);
   border-top: 1px solid var(--ion-color-medium-shade);
 }

@@ -1,62 +1,68 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button :default-href="backHref" />
-        </ion-buttons>
-        <ion-title>Booking</ion-title>
-      </ion-toolbar>
-    </ion-header>
 
-    <ion-content>
-      <div class="booking-page">
-        <ion-card v-if="guestBookingStore.loadingRoom" class="message-card message-card-center">
-          <ion-card-header>
-            <ion-card-subtitle>Loading</ion-card-subtitle>
-            <ion-card-title>Booking details</ion-card-title>
-          </ion-card-header>
+  <PageLayout>
 
-          <ion-card-content>
-            <ion-spinner name="crescent" />
-            <p>Loading booking details...</p>
-          </ion-card-content>
-        </ion-card>
+    <template #banner>
 
-        <StatusCard
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button :default-href="backHref"/>
+          </ion-buttons>
+          <ion-title>Booking</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+    </template>
+
+
+    <div class="booking-page">
+      <ion-card v-if="guestBookingStore.loadingRoom" class="message-card message-card-center">
+        <ion-card-header>
+          <ion-card-subtitle>Loading</ion-card-subtitle>
+          <ion-card-title>Booking details</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-spinner name="crescent"/>
+          <p>Loading booking details...</p>
+        </ion-card-content>
+      </ion-card>
+
+      <StatusCard
           v-else-if="guestBookingStore.submitError"
           variant="error"
           subtitle="Error"
           title="Booking could not be submitted"
           :message="guestBookingStore.submitError"
-        />
+      />
 
-        <BookingConfirmationCard
+      <BookingConfirmationCard
           v-else-if="guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation"
           :confirmation="guestBookingStore.confirmation"
-        />
+      />
 
-        <ion-grid v-else-if="bookingPeriodStore.isValidPeriod && guestBookingStore.hasRoom" class="booking-layout">
-          <ion-row>
-            <ion-col size="12" size-lg="4">
-              <BookingSummaryCard
+      <ion-grid v-else-if="bookingPeriodStore.isValidPeriod && guestBookingStore.hasRoom" class="booking-layout">
+        <ion-row>
+          <ion-col size="12" size-lg="4">
+            <BookingSummaryCard
                 :room="guestBookingStore.room"
                 :period-label="periodLabel"
                 :duration-in-days="bookingPeriodStore.durationInDays"
-              />
-            </ion-col>
+            />
+          </ion-col>
 
-            <ion-col size="12" size-lg="8">
-              <BookingGuestForm
+          <ion-col size="12" size-lg="8">
+            <BookingGuestForm
                 v-if="guestBookingStore.step === 'form'"
                 :form="guestBookingStore.form"
                 :errors="guestBookingStore.errors"
                 @update-booking-field="updateBookingField"
                 @validate-booking-field="validateBookingField"
                 @review-booking="reviewBooking"
-              />
+            />
 
-              <BookingReviewCard
+            <BookingReviewCard
                 v-else-if="guestBookingStore.step === 'review'"
                 :room="guestBookingStore.room"
                 :form="guestBookingStore.form"
@@ -65,28 +71,28 @@
                 :submitting="guestBookingStore.submitting"
                 @edit-booking="guestBookingStore.goToForm()"
                 @confirm-booking="confirmBooking"
-              />
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+            />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
-        <ion-grid v-else>
-          <ion-row>
-            <ion-col size="12" size-lg="8" offset-lg="2">
-              <StatusCard
+      <ion-grid v-else>
+        <ion-row>
+          <ion-col size="12" size-lg="8" offset-lg="2">
+            <StatusCard
                 variant="error"
                 subtitle="Booking not available"
                 title="Booking not ready"
                 :message="roomStatusMessage"
                 action-label="Back to rooms"
                 action-route="/rooms"
-              />
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-    </ion-content>
-  </ion-page>
+            />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </PageLayout>
 </template>
 
 <script lang="ts">
@@ -109,18 +115,20 @@ import {
   IonButton,
   IonSpinner
 } from '@ionic/vue'
-import { useBookingPeriodStore } from '@/stores/useBookingPeriodStore'
-import { useGuestBookingStore } from '@/stores/useGuestBookingStore'
+import {useBookingPeriodStore} from '@/stores/useBookingPeriodStore'
+import {useGuestBookingStore} from '@/stores/useGuestBookingStore'
 import BookingSummaryCard from '@/components/booking/BookingSummaryCard.vue'
 import BookingGuestForm from '@/components/booking/BookingGuestForm.vue'
 import BookingReviewCard from '@/components/booking/BookingReviewCard.vue'
 import BookingConfirmationCard from '@/components/booking/BookingConfirmationCard.vue'
 import StatusCard from '@/components/common/StatusCard.vue'
+import PageLayout from '@/components/layout/PageLayout.vue'
 
 export default {
   name: 'BookingPage',
 
   components: {
+    PageLayout,
     IonPage,
     IonHeader,
     IonToolbar,
@@ -185,7 +193,10 @@ export default {
   },
 
   methods: {
-    updateBookingField(payload: { field: 'firstName' | 'lastName' | 'email' | 'confirmEmail' | 'breakfast', value: string | boolean }) {
+    updateBookingField(payload: {
+      field: 'firstName' | 'lastName' | 'email' | 'confirmEmail' | 'breakfast',
+      value: string | boolean
+    }) {
       this.guestBookingStore.updateField(payload.field, payload.value)
     },
 
@@ -214,7 +225,7 @@ export default {
 
 <style scoped>
 .booking-page {
-  padding: 16px;
+  padding: 6px;
 }
 
 .booking-layout {

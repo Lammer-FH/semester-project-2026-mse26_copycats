@@ -22,9 +22,12 @@ export default {
 
 <style scoped>
 .section {
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 4rem;
   background: var(--ion-color-light);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .section-title {
@@ -33,8 +36,9 @@ export default {
 }
 
 :slotted(p) {
+  padding: 0 2.5rem 0 2.5rem;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.7;
   font-size: 1.2rem;
 }
 </style>

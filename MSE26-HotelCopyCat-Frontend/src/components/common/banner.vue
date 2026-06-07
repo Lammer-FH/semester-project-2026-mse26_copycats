@@ -4,6 +4,9 @@
     <div class="overlay">
       <div class="content">
         <h1 class="title">{{ title }}</h1>
+
+        <div v-if="subtitle" class="divider"></div>
+
         <p v-if="subtitle" class="subtitle">
           {{ subtitle }}
         </p>
@@ -47,6 +50,7 @@ export default {
   width: 100%;
   height: 320px;
   overflow: hidden;
+  margin-bottom: 3rem;
 }
 
 .banner-image {
@@ -77,14 +81,21 @@ export default {
 }
 
 .title {
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .subtitle {
-  font-size: 1rem;
+  font-size: 1.5rem;
   opacity: 0.9;
   margin-bottom: 16px;
+}
+
+.divider {
+  width: 18rem;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.85);
+  margin: 0 auto;
 }
 </style>

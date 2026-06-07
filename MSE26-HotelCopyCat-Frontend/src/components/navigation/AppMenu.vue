@@ -7,7 +7,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content :scroll-y="false">
 
       <ion-list>
 

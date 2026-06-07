@@ -1,64 +1,67 @@
 <template>
-  <ion-page>
 
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button default-href="/rooms" />
-        </ion-buttons>
-        <ion-title>{{ room?.name ?? 'Room Details' }}</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <PageLayout>
 
-    <ion-content>
-      <div v-if="room" class="detail-container">
-        <img :src="getRoomImageUrl(room.id)" :alt="room.name" class="room-image" />
+    <template #banner>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button default-href="/rooms"/>
+          </ion-buttons>
+          <ion-title>{{ room?.name ?? 'Room Details' }}</ion-title>
+        </ion-toolbar>
+      </ion-header>
 
-        <div class="detail-content">
-          <h1 class="room-title">{{ room.name }}</h1>
-          <p class="room-description">{{ room.description }}</p>
+    </template>
 
-          <div class="availability-section">
-            <template v-if="bookingStore.startDate && bookingStore.endDate">
-              <ion-text class="date-range-label">
-                {{ formatDate(bookingStore.startDate) }} &ndash; {{ formatDate(bookingStore.endDate) }}
-              </ion-text>
-              <div class="availability-status">
-                <ion-spinner v-if="availabilityLoading" name="crescent" />
-                <template v-else-if="availability !== null">
-                  <AvailabilityBadge :available="availability" />
-                  <ion-button :disabled="!availability" expand="block" class="book-button" @click="goToBooking">
-                    Book now
-                  </ion-button>
-                </template>
-              </div>
-            </template>
-            <template v-else>
-              <ion-text color="medium" class="no-dates-hint">
-                No dates selected - <router-link to="/rooms">select dates</router-link>
-              </ion-text>
-            </template>
-          </div>
 
-          <ion-label>Amenities</ion-label>
-          <RoomExtrasList :extras="room.extras" class="extras-section" />
+    <div v-if="room" class="detail-container">
+      <img :src="getRoomImageUrl(room.id)" :alt="room.name" class="room-image"/>
+
+      <div class="detail-content">
+        <h1 class="room-title">{{ room.name }}</h1>
+        <p class="room-description">{{ room.description }}</p>
+
+        <div class="availability-section">
+          <template v-if="bookingStore.startDate && bookingStore.endDate">
+            <ion-text class="date-range-label">
+              {{ formatDate(bookingStore.startDate) }} &ndash; {{ formatDate(bookingStore.endDate) }}
+            </ion-text>
+            <div class="availability-status">
+              <ion-spinner v-if="availabilityLoading" name="crescent"/>
+              <template v-else-if="availability !== null">
+                <AvailabilityBadge :available="availability"/>
+                <ion-button :disabled="!availability" expand="block" class="book-button" @click="goToBooking">
+                  Book now
+                </ion-button>
+              </template>
+            </div>
+          </template>
+          <template v-else>
+            <ion-text color="medium" class="no-dates-hint">
+              No dates selected -
+              <router-link to="/rooms">select dates</router-link>
+            </ion-text>
+          </template>
         </div>
-      </div>
 
-      <div v-else class="error-container">
-        <StatusCard
+        <ion-label>Amenities</ion-label>
+        <RoomExtrasList :extras="room.extras" class="extras-section"/>
+      </div>
+    </div>
+
+    <div v-else class="error-container">
+      <StatusCard
           variant="error"
           subtitle="Room unavailable"
           title="Room not found"
           message="The selected room could not be loaded."
           action-label="Back to rooms"
           action-route="/rooms"
-        />
-      </div>
+      />
+    </div>
 
-    </ion-content>
-
-  </ion-page>
+  </PageLayout>
 </template>
 
 <script lang="ts">
@@ -76,17 +79,19 @@ import {
   IonSpinner
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
+import PageLayout from '@/components/layout/PageLayout.vue'
 import AvailabilityBadge from '@/components/common/AvailabilityBadge.vue'
 import StatusCard from '@/components/common/StatusCard.vue'
 import roomService from '@/services/roomService'
-import type { Room } from '@/models/Room'
-import { getRoomImageUrl } from '@/models/Room'
-import { useBookingPeriodStore } from '@/stores/useBookingPeriodStore'
+import type {Room} from '@/models/Room'
+import {getRoomImageUrl} from '@/models/Room'
+import {useBookingPeriodStore} from '@/stores/useBookingPeriodStore'
 
 export default {
   name: 'RoomDetailPage',
 
   components: {
+    PageLayout,
     IonPage,
     IonHeader,
     IonToolbar,
@@ -117,7 +122,7 @@ export default {
     this.room = await roomService.getRoomTypeById(id)
     await this.checkAvailability()
   },
-    
+
   async ionViewWillEnter() {
     await this.checkAvailability()
   },
@@ -139,9 +144,9 @@ export default {
       this.availabilityLoading = true
       try {
         this.availability = await roomService.getAvailability(
-          this.room.id,
-          this.bookingStore.startDate,
-          this.bookingStore.endDate
+            this.room.id,
+            this.bookingStore.startDate,
+            this.bookingStore.endDate
         )
       } finally {
         this.availabilityLoading = false
@@ -153,7 +158,7 @@ export default {
         return
       }
 
-      this.$router.push({ name: 'Booking', params: { id: this.room.id } })
+      this.$router.push({name: 'Booking', params: {id: this.room.id}})
     },
 
     formatDate(dateStr: string): string {
