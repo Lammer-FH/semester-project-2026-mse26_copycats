@@ -13,6 +13,5 @@ import java.util.List;
 public interface RoomRepository extends JpaRepository<Room, Integer> {
     long countByRoomType_Id(Integer roomTypeId);
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select r from Room r where r.id = :id")
     List<Room> findByRoomType_Id(Integer roomTypeId);
 }
