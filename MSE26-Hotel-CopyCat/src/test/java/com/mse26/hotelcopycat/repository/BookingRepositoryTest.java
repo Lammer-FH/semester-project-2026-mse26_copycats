@@ -1,6 +1,5 @@
 package com.mse26.hotelcopycat.repository;
 
-import com.mse26.hotelcopycat.enums.BookingStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -23,65 +22,46 @@ class BookingRepositoryTest {
 
     @Test
     void countDistinctRoomIdCountsOnlyOverlappingBookingsOfRequestedRoomType() {
-
         jdbcTemplate.update(
                 "insert into room_types (id, name, description, image_path) values (?, ?, ?, ?)",
-                1, "Business Room", "A quiet room tailored for work trips and short stays.", "/images/rooms/2.jpg"
+                1, "Deluxe Suite", "A spacious suite with a view of the city.", "/images/rooms/1.jpg"
         );
-
+        jdbcTemplate.update(
+                "insert into room_types (id, name, description, image_path) values (?, ?, ?, ?)",
+                2, "Business Room", "A quiet room tailored for work trips and short stays.", "/images/rooms/2.jpg"
+        );
         jdbcTemplate.update(
                 "insert into rooms (id, room_nr, id_room_types) values (?, ?, ?)",
                 1, "101", 1
         );
-
         jdbcTemplate.update(
                 "insert into rooms (id, room_nr, id_room_types) values (?, ?, ?)",
                 2, "102", 1
         );
-
         jdbcTemplate.update(
-                "insert into guests (id, first_name, last_name, email) values (?, ?, ?, ?)",
-                1, "Max", "Mustermann", "max@example.com"
+                "insert into rooms (id, room_nr, id_room_types) values (?, ?, ?)",
+                3, "301", 2
         );
-
         jdbcTemplate.update(
-                "insert into guests (id, first_name, last_name, email) values (?, ?, ?, ?)",
-                2, "Anna", "Schmidt", "anna@example.com"
+                "insert into bookings (id, room_id, check_in, check_out) values (?, ?, ?, ?)",
+                1, 1, LocalDate.of(2026, 7, 1), LocalDate.of(2026, 7, 5)
         );
-
         jdbcTemplate.update(
-                """
-                insert into bookings 
-                (id, room_id, guest_id, check_in, check_out, breakfast, status, created_at)
-                values (?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                1, 1, 1,
-                LocalDate.of(2026, 7, 1),
-                LocalDate.of(2026, 7, 5),
-                1, BookingStatus.CONFIRMED.name(),
-                "2026-06-01T10:00:00Z"
+                "insert into bookings (id, room_id, check_in, check_out) values (?, ?, ?, ?)",
+                2, 2, LocalDate.of(2026, 7, 10), LocalDate.of(2026, 7, 12)
         );
-
         jdbcTemplate.update(
-                """
-                insert into bookings 
-                (id, room_id, guest_id, check_in, check_out, breakfast, status, created_at)
-                values (?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                2, 2, 2,
-                LocalDate.of(2026, 7, 1),
-                LocalDate.of(2026, 7, 5),
-                0, BookingStatus.CONFIRMED.name(),
-                "2026-06-01T10:00:00Z"
+                "insert into bookings (id, room_id, check_in, check_out) values (?, ?, ?, ?)",
+                3, 3, LocalDate.of(2026, 7, 1), LocalDate.of(2026, 7, 5)
         );
 
         long overlappingBookings = bookingRepository
                 .countBookedRoomsForRoomTypeInPeriod(
                         1,
-                        LocalDate.of(2026, 7, 2),
-                        LocalDate.of(2026, 7, 4)
+                        LocalDate.of(2026, 7, 4),
+                        LocalDate.of(2026, 7, 2)
                 );
 
-        assertThat(overlappingBookings).isEqualTo(2);
+        assertThat(overlappingBookings).isEqualTo(1);
     }
 }
