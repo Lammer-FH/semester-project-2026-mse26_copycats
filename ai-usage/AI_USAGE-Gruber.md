@@ -31,3 +31,7 @@ GPT 5.3
 ## Find available room that's not in booked rooms
 GPT 5.3
 - Schreib mir in BookingService einen LINQ-ähnlichen Aufruf, mit dem ich aus den beiden Listen allRooms und bookedRooms einen Room bekomme, der verfügbar und nicht in bookedRooms drinnen ist.
+
+## Test Data for new Tables
+GPT 5.3
+- Passe die Testdaten für Bookings an die neuen Spalten an und erstelle Testdaten für die neue Tabelle für Guests.

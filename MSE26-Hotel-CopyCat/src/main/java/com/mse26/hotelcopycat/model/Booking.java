@@ -25,6 +25,12 @@ public class Booking {
 
     @Getter
     @Setter
+    @ManyToOne
+    @JoinColumn(name = "guest_id", nullable = false)
+    private Guest guest;
+
+    @Getter
+    @Setter
     @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
 

@@ -44,11 +44,20 @@ INSERT IGNORE INTO rooms (id, room_nr, id_room_types) VALUES
     (13, '801', 8),
     (14, '901', 9);
 
-INSERT IGNORE INTO bookings (id, room_id, check_in, check_out, breakfast, status, created_at) VALUES
-(1, 1, '2026-07-01', '2026-07-05', 1, 'CONFIRMED', '2026-06-01T10:00:00Z'),
-(2, 3, '2026-07-10', '2026-07-15', 0, 'CONFIRMED', '2026-06-02T11:00:00Z'),
-(3, 5, '2026-08-01', '2026-08-03', 1, 'CONFIRMED', '2026-06-03T12:00:00Z'),
-(4, 7, '2026-07-01', '2026-07-31', 1, 'CONFIRMED', '2026-06-04T09:30:00Z'),
-(5, 10, '2026-07-01', '2026-07-31', 0, 'CONFIRMED', '2026-06-05T08:15:00Z'),
-(6, 13, '2026-07-01', '2026-07-31', 1, 'CONFIRMED', '2026-06-06T14:45:00Z'),
-(7, 14, '2026-07-01', '2026-12-31', 1, 'CONFIRMED', '2026-06-07T16:00:00Z');
+INSERT IGNORE INTO guests (id, first_name, last_name, email) VALUES
+(1, 'Max', 'Mustermann', 'max@example.com'),
+(2, 'Anna', 'Schmidt', 'anna@example.com'),
+(3, 'John', 'Doe', 'john@example.com'),
+(4, 'Laura', 'Weber', 'laura@example.com'),
+(5, 'David', 'Müller', 'david@example.com'),
+(6, 'Sophie', 'Bauer', 'sophie@example.com'),
+(7, 'Michael', 'Fischer', 'michael@example.com');
+
+INSERT IGNORE INTO bookings  (id, room_id, guest_id, check_in, check_out, breakfast, status, created_at) VALUES
+(1, 1, 1, '2026-07-01', '2026-07-05', 1, 'CONFIRMED', '2026-06-01T10:00:00Z'),
+(2, 3, 2, '2026-07-10', '2026-07-15', 0, 'CONFIRMED', '2026-06-02T11:00:00Z'),
+(3, 5, 3, '2026-08-01', '2026-08-03', 1, 'CONFIRMED', '2026-06-03T12:00:00Z'),
+(4, 7, 4, '2026-07-01', '2026-07-31', 1, 'CONFIRMED', '2026-06-04T09:30:00Z'),
+(5, 10, 5, '2026-07-01', '2026-07-31', 0, 'CONFIRMED', '2026-06-05T08:15:00Z'),
+(6, 13, 6, '2026-07-01', '2026-07-31', 1, 'CONFIRMED', '2026-06-06T14:45:00Z'),
+(7, 14, 7, '2026-07-01', '2026-12-31', 1, 'CONFIRMED', '2026-06-07T16:00:00Z');
