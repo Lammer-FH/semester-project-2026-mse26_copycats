@@ -1,6 +1,5 @@
 package com.mse26.hotelcopycat.api.dtos.v1;
 
-import com.mse26.hotelcopycat.enums.BookingStatus;
 import com.mse26.hotelcopycat.model.RoomType;
 import lombok.Builder;
 import lombok.Value;
@@ -22,6 +21,6 @@ public class BookingResponseDto {
     String lastName;
     String email;
     Boolean breakfast;
-    BookingStatus status;
+    String status;
     Instant createdAt;
 }

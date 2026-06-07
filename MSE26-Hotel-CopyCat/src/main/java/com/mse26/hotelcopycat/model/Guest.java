@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.print.Book;
 import java.util.Set;
 
 @Entity
@@ -21,17 +20,26 @@ public class Guest {
     private Set<Booking> bookings;
 
     @Getter
-    @Setter
     @Column(name = "first_name")
     private String firstName;
 
     @Getter
-    @Setter
     @Column(name = "last_name")
     private String lastName;
 
     @Getter
-    @Setter
     @Column(name = "email")
     private String email;
+
+    public Guest() {}
+
+    public Guest(
+            String firstName,
+            String lastName,
+            String email
+    ){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 }

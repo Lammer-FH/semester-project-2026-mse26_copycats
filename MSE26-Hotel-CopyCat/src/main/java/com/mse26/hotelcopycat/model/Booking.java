@@ -1,9 +1,7 @@
 package com.mse26.hotelcopycat.model;
 
-import com.mse26.hotelcopycat.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -18,41 +16,51 @@ public class Booking {
     private int id;
 
     @Getter
-    @Setter
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
     @Getter
-    @Setter
-    @ManyToOne(cascade = CascadeType.PERSIST) // automatically persist Guest Entity as well
+    @ManyToOne
     @JoinColumn(name = "guest_id", nullable = false)
     private Guest guest;
 
     @Getter
-    @Setter
     @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
 
     @Getter
-    @Setter
     @Column(name = "check_out", nullable = false)
     private LocalDate checkOut;
 
     @Getter
-    @Setter
     @Column(name = "breakfast", nullable = false)
     private boolean breakfast;
 
     @Getter
-    @Setter
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private BookingStatus status;
+    private String status;
 
     @Getter
-    @Setter
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
     public Booking() {}
+
+    public Booking(
+            Room room,
+            Guest guest,
+            LocalDate checkIn,
+            LocalDate checkOut,
+            boolean breakfast,
+            String status,
+            Instant createdAt
+    ) {
+        this.room = room;
+        this.guest = guest;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.breakfast = breakfast;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
 }

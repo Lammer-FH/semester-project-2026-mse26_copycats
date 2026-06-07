@@ -1,6 +1,5 @@
 package com.mse26.hotelcopycat.repository;
 
-import com.mse26.hotelcopycat.enums.BookingStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -58,7 +57,7 @@ class BookingRepositoryTest {
                 1, 1, 1,
                 LocalDate.of(2026, 7, 1),
                 LocalDate.of(2026, 7, 5),
-                1, BookingStatus.CONFIRMED.name(),
+                1, "CONFIRMED",
                 "2026-06-01T10:00:00Z"
         );
 
@@ -71,7 +70,7 @@ class BookingRepositoryTest {
                 2, 2, 2,
                 LocalDate.of(2026, 7, 1),
                 LocalDate.of(2026, 7, 5),
-                0, BookingStatus.CONFIRMED.name(),
+                0, "CONFIRMED",
                 "2026-06-01T10:00:00Z"
         );
 

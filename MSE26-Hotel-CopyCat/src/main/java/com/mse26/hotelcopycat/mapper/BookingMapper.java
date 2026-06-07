@@ -2,8 +2,8 @@ package com.mse26.hotelcopycat.mapper;
 
 import com.mse26.hotelcopycat.api.dtos.v1.BookingRequestDto;
 import com.mse26.hotelcopycat.api.dtos.v1.BookingResponseDto;
-import com.mse26.hotelcopycat.enums.BookingStatus;
 import com.mse26.hotelcopycat.model.Booking;
+import com.mse26.hotelcopycat.model.Guest;
 import com.mse26.hotelcopycat.model.Room;
 import org.springframework.stereotype.Component;
 
@@ -20,16 +20,16 @@ public class BookingMapper {
     public Booking toEntity(
             BookingRequestDto dto,
             Room room,
-            BookingStatus status
+            Guest guest
     ){
-        Booking booking = new Booking();
-
-        booking.setRoom(room);
-        booking.setCheckIn(dto.checkIn());
-        booking.setCheckOut(dto.checkOut());
-        booking.setBreakfast(dto.breakfast());
-        booking.setStatus(status);
-        booking.setCreatedAt(Instant.now());
+        Booking booking = new Booking(
+                room,
+                guest,
+                dto.checkIn(),
+                dto.checkOut(),
+                dto.breakfast(),
+                "CONFIRMED",
+                Instant.now());
 
         return booking;
     }
