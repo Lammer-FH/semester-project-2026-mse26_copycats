@@ -50,6 +50,7 @@ export default {
   width: 100%;
   height: 320px;
   overflow: hidden;
+  margin-bottom: 3rem;
 }
 
 .banner-image {
