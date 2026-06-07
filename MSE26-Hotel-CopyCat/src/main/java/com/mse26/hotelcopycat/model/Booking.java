@@ -46,6 +46,7 @@ public class Booking {
 
     @Getter
     @Setter
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private BookingStatus status;
 
