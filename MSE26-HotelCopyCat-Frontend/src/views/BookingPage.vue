@@ -1,6 +1,6 @@
 <template>
 
-  <PageLayout>
+  <PageLayout :class="{ 'booking-page-shell': guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation }">
 
     <template #banner>
 
