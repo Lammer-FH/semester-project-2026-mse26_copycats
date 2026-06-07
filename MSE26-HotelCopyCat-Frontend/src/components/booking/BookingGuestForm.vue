@@ -177,7 +177,7 @@ export default {
 }
 
 .field {
-  --background: #f7f8fa;
+  --background: var(--ion-color-light);
   --border-radius: 12px;
   --padding-start: 14px;
   --inner-padding-end: 14px;
