@@ -247,7 +247,8 @@ export const useGuestBookingStore = defineStore('guestBooking', {
         title: 'Booking submitted',
         message: 'Your booking request was submitted successfully.',
         actionLabel: 'Back to rooms',
-        actionRoute: '/rooms'
+        actionRoute: '/rooms',
+        booking: _response
       }
     },
 

@@ -15,3 +15,8 @@ GPT-5.3
 - Is there a way to separate the hero/banner element from the page styling while keeping pagelayout universal for all pages? -> multiple slots
 - Add a divider line between the title and subtitle (insert banner component)
 
+## Confirmation Page
+GPT-5.3
+-
+
+- Please generate some directions for our hotel that's at Palmoria Bay Street 1/2/3; these directions are for the confirmation page after a booking.

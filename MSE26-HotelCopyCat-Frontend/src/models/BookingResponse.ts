@@ -1,7 +1,11 @@
+import {RoomExtra} from "@/models/Room";
+
 export interface BookingResponse {
   id: number
   roomTypeId: number
   roomName: string
+  roomDescription: string
+  roomExtras: RoomExtra[]
   checkIn: string
   checkOut: string
   firstName: string
