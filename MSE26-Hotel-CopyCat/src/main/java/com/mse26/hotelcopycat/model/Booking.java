@@ -25,7 +25,7 @@ public class Booking {
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST) // automatically persist Guest Entity as well
     @JoinColumn(name = "guest_id", nullable = false)
     private Guest guest;
 
@@ -38,6 +38,7 @@ public class Booking {
     @Setter
     @Column(name = "check_out", nullable = false)
     private LocalDate checkOut;
+
     @Getter
     @Setter
     @Column(name = "breakfast", nullable = false)

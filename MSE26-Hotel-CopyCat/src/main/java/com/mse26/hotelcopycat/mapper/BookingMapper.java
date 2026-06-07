@@ -4,6 +4,7 @@ import com.mse26.hotelcopycat.api.dtos.v1.BookingRequestDto;
 import com.mse26.hotelcopycat.api.dtos.v1.BookingResponseDto;
 import com.mse26.hotelcopycat.enums.BookingStatus;
 import com.mse26.hotelcopycat.model.Booking;
+import com.mse26.hotelcopycat.model.Guest;
 import com.mse26.hotelcopycat.model.Room;
 import com.mse26.hotelcopycat.model.RoomType;
 import org.springframework.stereotype.Component;
@@ -37,8 +38,12 @@ public class BookingMapper {
                 .roomType(booking.getRoom().getRoomType())
                 .checkIn(booking.getCheckIn())
                 .checkOut(booking.getCheckOut())
-                //TODO: fill missing with Guest info
+                .firstName(booking.getGuest().getFirstName())
+                .lastName(booking.getGuest().getLastName())
+                .email(booking.getGuest().getEmail())
+                .breakfast(booking.isBreakfast())
+                .status(booking.getStatus())
+                .createdAt(booking.getCreatedAt())
                 .build();
-
     }
 }

@@ -17,7 +17,6 @@ public class Guest {
     private int id;
 
     @Getter
-    @Setter
     @OneToMany(mappedBy = "guest")
     private Set<Booking> bookings;
 

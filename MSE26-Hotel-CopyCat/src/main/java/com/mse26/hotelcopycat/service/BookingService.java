@@ -4,12 +4,11 @@ import com.mse26.hotelcopycat.api.dtos.v1.BookingRequestDto;
 import com.mse26.hotelcopycat.api.dtos.v1.BookingResponseDto;
 import com.mse26.hotelcopycat.enums.BookingStatus;
 import com.mse26.hotelcopycat.mapper.BookingMapper;
-import com.mse26.hotelcopycat.mapper.RoomTypeMapper;
 import com.mse26.hotelcopycat.model.Booking;
+import com.mse26.hotelcopycat.model.Guest;
 import com.mse26.hotelcopycat.model.Room;
 import com.mse26.hotelcopycat.repository.BookingRepository;
 import com.mse26.hotelcopycat.repository.RoomRepository;
-import com.mse26.hotelcopycat.repository.RoomTypeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -38,14 +37,26 @@ public class BookingService {
             throw new ResponseStatusException(BAD_REQUEST, "Email addresses do not match");
         }
 
-        //TODO: create guest
+        Guest guest = createNewGuest(bookingRequestDto);
         var chosenRoom = getAvailableRoomForBooking(bookingRequestDto);
         Booking booking = bookingMapper.toEntity(
                 bookingRequestDto,
                 chosenRoom,
                 BookingStatus.CONFIRMED
         );
-        bookingRepository.save(booking);
+        booking.setGuest(guest);
+
+        Booking saved = bookingRepository.save(booking);
+        return bookingMapper.toResponseDto(saved);
+    }
+
+    private Guest createNewGuest(BookingRequestDto bookingRequestDto){
+        Guest guest = new Guest();
+        guest.setFirstName(bookingRequestDto.getFirstName());
+        guest.setLastName(bookingRequestDto.getLastName());
+        guest.setEmail(bookingRequestDto.getEmail());
+
+        return guest;
     }
 
     private Room getAvailableRoomForBooking(BookingRequestDto bookingRequestDto){
