@@ -33,7 +33,7 @@ public class BookingService {
 
     @Transactional
     public BookingResponseDto createBooking(BookingRequestDto bookingRequestDto){
-        if(!bookingRequestDto.getEmail().equals(bookingRequestDto.getConfirmEmail())){
+        if(!bookingRequestDto.email().equals(bookingRequestDto.confirmEmail())){
             throw new ResponseStatusException(BAD_REQUEST, "Email addresses do not match");
         }
 
@@ -52,29 +52,29 @@ public class BookingService {
 
     private Guest createNewGuest(BookingRequestDto bookingRequestDto){
         Guest guest = new Guest();
-        guest.setFirstName(bookingRequestDto.getFirstName());
-        guest.setLastName(bookingRequestDto.getLastName());
-        guest.setEmail(bookingRequestDto.getEmail());
+        guest.setFirstName(bookingRequestDto.firstName());
+        guest.setLastName(bookingRequestDto.lastName());
+        guest.setEmail(bookingRequestDto.email());
 
         return guest;
     }
 
     private Room getAvailableRoomForBooking(BookingRequestDto bookingRequestDto){
-        var roomTypeId = bookingRequestDto.getRoomTypeId();
+        var roomTypeId = bookingRequestDto.roomTypeId();
         var allRooms = roomRepository.findByRoomType_Id(roomTypeId);
         var bookedRooms = bookingRepository.findBookedRoomsForRoomTypeInPeriod(
                 roomTypeId,
-                bookingRequestDto.getCheckOut(),
-                bookingRequestDto.getCheckIn()
+                bookingRequestDto.checkOut(),
+                bookingRequestDto.checkIn()
         );
         var chosenRoom = allRooms.stream()
                 .filter(room -> !bookedRooms.contains(room))
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(
                         CONFLICT,
-                        "No room of type " + bookingRequestDto.getRoomTypeId() +
-                                " is available from " + bookingRequestDto.getCheckIn() +
-                                " to " + bookingRequestDto.getCheckOut()
+                        "No room of type " + bookingRequestDto.roomTypeId() +
+                                " is available from " + bookingRequestDto.checkIn() +
+                                " to " + bookingRequestDto.checkOut()
                 ));
         return chosenRoom;
     }

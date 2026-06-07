@@ -4,9 +4,7 @@ import com.mse26.hotelcopycat.api.dtos.v1.BookingRequestDto;
 import com.mse26.hotelcopycat.api.dtos.v1.BookingResponseDto;
 import com.mse26.hotelcopycat.enums.BookingStatus;
 import com.mse26.hotelcopycat.model.Booking;
-import com.mse26.hotelcopycat.model.Guest;
 import com.mse26.hotelcopycat.model.Room;
-import com.mse26.hotelcopycat.model.RoomType;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -21,9 +19,9 @@ public class BookingMapper {
         Booking booking = new Booking();
 
         booking.setRoom(room);
-        booking.setCheckIn(dto.getCheckIn());
-        booking.setCheckOut(dto.getCheckOut());
-        booking.setBreakfast(dto.getBreakfast());
+        booking.setCheckIn(dto.checkIn());
+        booking.setCheckOut(dto.checkOut());
+        booking.setBreakfast(dto.breakfast());
         booking.setStatus(status);
         booking.setCreatedAt(Instant.now());
 
