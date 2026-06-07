@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
 .site-footer {
-  margin-top: 4rem;
+  margin-top: 3rem;
   background: var(--ion-color-light);
   border-top: 1px solid var(--ion-color-medium-shade);
 }

@@ -2,7 +2,7 @@
   <PageLayout>
 
     <template #banner>
-      <BannerSection image="/images/banner.jpg"
+      <BannerSection image="/images/AboutUsBannerImg.png"
                      title="Get to know us"
                      subtitle="How it all began"/>
     </template>

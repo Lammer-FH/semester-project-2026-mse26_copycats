@@ -24,7 +24,10 @@ export default {
 .section {
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
+  margin-bottom: 2rem;
   background: var(--ion-color-light);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .section-title {
@@ -33,6 +36,7 @@ export default {
 }
 
 :slotted(p) {
+  padding: 0 1rem 0 1rem;
   text-align: center;
   line-height: 1.4;
   font-size: 1.2rem;

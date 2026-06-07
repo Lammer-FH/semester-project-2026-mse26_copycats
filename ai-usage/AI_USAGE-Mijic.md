@@ -11,5 +11,5 @@ GPT-5.3
 GPT-5.3
 - The project currently uses a pagelayout component with a slot that holds the content of the views:(insert component)if I want to style the the page (e.g. centre content, add space between between content and screenborder) is it best practice to do that in the pagelayout component?
 - Is there a way to separate the hero/banner element from the page styling while keeping pagelayout universal for all pages? -> multiple slots
-- 
+- Add a divider line between the title and subtitle (insert banner component)
 

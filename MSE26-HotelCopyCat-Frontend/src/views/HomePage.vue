@@ -3,7 +3,7 @@
   <PageLayout>
 
     <template #banner>
-      <BannerSection image="/images/banner.jpg"
+      <BannerSection image="/images/HomePageBannerImg.png"
                      title="Hotel CopyCats"
                      subtitle="Find your perfect room"/>
     </template>
