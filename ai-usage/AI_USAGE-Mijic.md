@@ -6,3 +6,10 @@ GPT-5.3
 ## Fix small Dark Mode issue
 GPT-5.3
 - (pasted contents of booking components); Which lines define the color of UI elements, one of them causes an issue in dark mode.
+
+## Some UI Topics
+GPT-5.3
+- The project currently uses a pagelayout component with a slot that holds the content of the views:(insert component)if I want to style the the page (e.g. centre content, add space between between content and screenborder) is it best practice to do that in the pagelayout component?
+- Is there a way to separate the hero/banner element from the page styling while keeping pagelayout universal for all pages? -> multiple slots
+- 
+
