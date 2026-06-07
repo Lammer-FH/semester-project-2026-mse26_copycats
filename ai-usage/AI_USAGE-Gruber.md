@@ -23,3 +23,15 @@ GPT-5.3
 ## Show available rooms if date were picked
 GPT-5.3
 - Wenn ich im Date Picker ein Start und Enddatum eingebe, will ich nur die available rooms sehen, mach, dass die Seite reaktiv drauf reagiert auf was das Datum gesetzt wurde.
+
+## Springboot Repository Method Name to get all Rooms with Room type
+GPT 5.3
+- Wie muss meine Methode im RoomRepository heißen, damit ich eine Liste aller Räume bekomme, die einen RoomType mit der gegeben Id haben.
+
+## Find available room that's not in booked rooms
+GPT 5.3
+- Schreib mir in BookingService einen LINQ-ähnlichen Aufruf, mit dem ich aus den beiden Listen allRooms und bookedRooms einen Room bekomme, der verfügbar und nicht in bookedRooms drinnen ist.
+
+## Test Data for new Tables
+GPT 5.3
+- Passe die Testdaten für Bookings an die neuen Spalten an und erstelle Testdaten für die neue Tabelle für Guests.
