@@ -19,7 +19,6 @@
             required
             :aria-invalid="!!errors.firstName"
             @ionInput="emitFieldUpdate('firstName', $event)"
-            @ionBlur="emitFieldValidationRequest('firstName')"
           />
         </ion-item>
         <ion-note v-if="errors.firstName" class="field-error" color="danger">{{ errors.firstName }}</ion-note>
@@ -34,7 +33,6 @@
             required
             :aria-invalid="!!errors.lastName"
             @ionInput="emitFieldUpdate('lastName', $event)"
-            @ionBlur="emitFieldValidationRequest('lastName')"
           />
         </ion-item>
         <ion-note v-if="errors.lastName" class="field-error" color="danger">{{ errors.lastName }}</ion-note>
@@ -50,7 +48,6 @@
             required
             :aria-invalid="!!errors.email"
             @ionInput="emitFieldUpdate('email', $event)"
-            @ionBlur="emitFieldValidationRequest('email')"
           />
         </ion-item>
         <ion-note v-if="errors.email" class="field-error" color="danger">{{ errors.email }}</ion-note>
@@ -66,7 +63,6 @@
             required
             :aria-invalid="!!errors.confirmEmail"
             @ionInput="emitFieldUpdate('confirmEmail', $event)"
-            @ionBlur="emitFieldValidationRequest('confirmEmail')"
           />
         </ion-item>
         <ion-note v-if="errors.confirmEmail" class="field-error" color="danger">{{ errors.confirmEmail }}</ion-note>
@@ -103,9 +99,8 @@ import {
   IonNote,
   IonButton
 } from '@ionic/vue'
-import type { InputCustomEvent, InputInputEventDetail } from '@ionic/vue'
 import type { PropType } from 'vue'
-import type { BookingForm } from '@/models/BookingForm'
+import type { BookingErrors, BookingField, BookingForm } from '@/models/BookingForm'
 
 export default {
   name: 'BookingGuestForm',
@@ -130,23 +125,19 @@ export default {
       required: true
     },
     errors: {
-      type: Object as PropType<Record<string, string>>,
+      type: Object as PropType<BookingErrors>,
       required: true
     }
   },
 
-  emits: ['update-booking-field', 'validate-booking-field', 'review-booking'],
+  emits: ['update-booking-field', 'review-booking'],
 
   methods: {
-    emitFieldUpdate(field: string, event: InputCustomEvent<InputInputEventDetail>) {
+    emitFieldUpdate(field: BookingField, event: CustomEvent<{ value?: string | null }>) {
       this.$emit('update-booking-field', {
         field,
         value: event.detail.value ?? ''
       })
-    },
-
-    emitFieldValidationRequest(field: string) {
-      this.$emit('validate-booking-field', field)
     },
 
     emitToggleUpdate(event: CustomEvent) {

@@ -1,76 +1,80 @@
 <template>
-
-  <PageLayout :class="{ 'booking-page-shell': guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation }">
-
+  <PageLayout :class="{ 'booking-page-shell': step === BOOKING_STEP.CONFIRMATION && confirmation }">
     <template #banner>
-
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-back-button :default-href="backHref"/>
+            <ion-back-button :default-href="backHref" />
           </ion-buttons>
           <ion-title>Booking</ion-title>
         </ion-toolbar>
       </ion-header>
-
     </template>
 
-
     <div class="booking-page">
-      <ion-card v-if="guestBookingStore.loadingRoom" class="message-card message-card-center">
+      <ion-card v-if="roomLoading" class="message-card message-card-center">
         <ion-card-header>
           <ion-card-subtitle>Loading</ion-card-subtitle>
           <ion-card-title>Booking details</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
-          <ion-spinner name="crescent"/>
+          <ion-spinner name="crescent" />
           <p>Loading booking details...</p>
         </ion-card-content>
       </ion-card>
 
       <StatusCard
-          v-else-if="guestBookingStore.submitError"
-          variant="error"
-          subtitle="Error"
-          title="Booking could not be submitted"
-          :message="guestBookingStore.submitError"
+        v-else-if="roomError"
+        variant="error"
+        subtitle="Booking not available"
+        title="Booking not ready"
+        :message="roomError"
+        action-label="Back to rooms"
+        action-route="/rooms"
+      />
+
+      <StatusCard
+        v-else-if="submitError"
+        variant="error"
+        subtitle="Error"
+        title="Booking could not be submitted"
+        :message="submitError"
       />
 
       <BookingConfirmationCard
-          v-else-if="guestBookingStore.step === 'confirmation' && guestBookingStore.confirmation"
-          :confirmation="guestBookingStore.confirmation"
+        v-else-if="step === BOOKING_STEP.CONFIRMATION && confirmation"
+        :confirmation="confirmation"
       />
 
-      <ion-grid v-else-if="bookingPeriodStore.isValidPeriod && guestBookingStore.hasRoom" class="booking-layout">
+      <ion-grid v-else-if="room && bookingPeriodStore.isValidPeriod" class="booking-layout">
         <ion-row>
           <ion-col size="12" size-lg="4">
             <BookingSummaryCard
-                :room="guestBookingStore.room"
-                :period-label="periodLabel"
-                :duration-in-days="bookingPeriodStore.durationInDays"
+              :room="room"
+              :period-label="periodLabel"
+              :duration-in-days="bookingPeriodStore.durationInDays"
             />
           </ion-col>
 
           <ion-col size="12" size-lg="8">
             <BookingGuestForm
-                v-if="guestBookingStore.step === 'form'"
-                :form="guestBookingStore.form"
-                :errors="guestBookingStore.errors"
-                @update-booking-field="updateBookingField"
-                @validate-booking-field="validateBookingField"
-                @review-booking="reviewBooking"
+              v-if="step === BOOKING_STEP.FORM"
+              :form="form"
+              :errors="errors"
+              @update-booking-field="updateBookingField"
+              @review-booking="reviewBooking"
             />
 
             <BookingReviewCard
-                v-else-if="guestBookingStore.step === 'review'"
-                :room="guestBookingStore.room"
-                :form="guestBookingStore.form"
-                :period-label="periodLabel"
-                :duration-in-days="bookingPeriodStore.durationInDays"
-                :submitting="guestBookingStore.submitting"
-                @edit-booking="guestBookingStore.goToForm()"
-                @confirm-booking="confirmBooking"
+              v-else-if="step === BOOKING_STEP.REVIEW"
+              :room="room"
+              :form="form"
+              :period-label="periodLabel"
+              :duration-in-days="bookingPeriodStore.durationInDays"
+              :submitting="submitting"
+              @edit-booking="goToForm"
+              @confirm-booking="confirmBooking"
             />
           </ion-col>
         </ion-row>
@@ -80,146 +84,185 @@
         <ion-row>
           <ion-col size="12" size-lg="8" offset-lg="2">
             <StatusCard
-                variant="error"
-                subtitle="Booking not available"
-                title="Booking not ready"
-                :message="roomStatusMessage"
-                action-label="Back to rooms"
-                action-route="/rooms"
+              variant="error"
+              subtitle="Booking not available"
+              title="Booking not ready"
+              :message="availabilityMessage"
+              action-label="Back to rooms"
+              action-route="/rooms"
             />
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
-
   </PageLayout>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
   IonBackButton,
-  IonTitle,
-  IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
+  IonButtons,
   IonCard,
+  IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
-  IonCardContent,
-  IonButton,
-  IonSpinner
+  IonCol,
+  IonGrid,
+  IonHeader,
+  IonRow,
+  IonSpinner,
+  IonTitle,
+  IonToolbar
 } from '@ionic/vue'
-import {useBookingPeriodStore} from '@/stores/useBookingPeriodStore'
-import {useGuestBookingStore} from '@/stores/useGuestBookingStore'
-import BookingSummaryCard from '@/components/booking/BookingSummaryCard.vue'
+import BookingConfirmationCard from '@/components/booking/BookingConfirmationCard.vue'
 import BookingGuestForm from '@/components/booking/BookingGuestForm.vue'
 import BookingReviewCard from '@/components/booking/BookingReviewCard.vue'
-import BookingConfirmationCard from '@/components/booking/BookingConfirmationCard.vue'
+import BookingSummaryCard from '@/components/booking/BookingSummaryCard.vue'
 import StatusCard from '@/components/common/StatusCard.vue'
 import PageLayout from '@/components/layout/PageLayout.vue'
+import { BOOKING_STEP, type BookingStep } from '@/features/booking/bookingStep'
+import type { BookingConfirmation } from '@/models/BookingConfirmation'
+import { useBookingForm } from '@/features/booking/useBookingForm'
+import { toBookingConfirmation, toBookingRoomContext } from '@/features/booking/bookingMapper'
+import roomService from '@/services/roomService'
+import { useBookingPeriodStore } from '@/stores/useBookingPeriodStore'
+import type { BookingRoomContext } from '@/models/BookingRoomContext'
 
-export default {
-  name: 'BookingPage',
+const route = useRoute()
+const bookingPeriodStore = useBookingPeriodStore()
 
-  components: {
-    PageLayout,
-    IonPage,
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonBackButton,
-    IonTitle,
-    IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCardContent,
-    IonButton,
-    IonSpinner,
-    BookingSummaryCard,
-    BookingGuestForm,
-    BookingReviewCard,
-    BookingConfirmationCard,
-    StatusCard
-  },
+const room = ref<BookingRoomContext | null>(null)
+const roomLoading = ref(false)
+const roomError = ref('')
 
-  data() {
-    return {
-      bookingPeriodStore: useBookingPeriodStore(),
-      guestBookingStore: useGuestBookingStore()
-    }
-  },
+const step = ref<BookingStep>(BOOKING_STEP.FORM)
+const confirmation = ref<BookingConfirmation | null>(null)
 
-  computed: {
-    backHref(): string {
-      const roomId = Number(this.$route.params.id)
-      return Number.isNaN(roomId) ? '/rooms' : `/rooms/${roomId}`
-    },
+const {
+  form,
+  errors,
+  submitError,
+  submitting,
+  resetBookingForm,
+  updateBookingField,
+  validateForm,
+  submitBooking
+} = useBookingForm()
 
-    periodLabel(): string {
-      if (!this.bookingPeriodStore.startDate || !this.bookingPeriodStore.endDate) {
-        return ''
-      }
+const backHref = computed(() => {
+  const roomId = Number(route.params.id)
+  return Number.isNaN(roomId) ? '/rooms' : `/rooms/${roomId}`
+})
 
-      return `${this.formatDate(this.bookingPeriodStore.startDate)} - ${this.formatDate(this.bookingPeriodStore.endDate)}`
-    },
-
-    roomStatusMessage(): string {
-      if (this.guestBookingStore.roomLoadError) {
-        return this.guestBookingStore.roomLoadError
-      }
-
-      if (!this.bookingPeriodStore.isValidPeriod) {
-        return 'Please select a valid booking period before continuing.'
-      }
-
-      return 'The selected room could not be loaded.'
-    }
-  },
-
-  async created() {
-    const id = Number(this.$route.params.id)
-    await this.guestBookingStore.loadBookingContext(id)
-  },
-
-  methods: {
-    updateBookingField(payload: {
-      field: 'firstName' | 'lastName' | 'email' | 'confirmEmail' | 'breakfast',
-      value: string | boolean
-    }) {
-      this.guestBookingStore.updateField(payload.field, payload.value)
-    },
-
-    validateBookingField(field: 'firstName' | 'lastName' | 'email' | 'confirmEmail' | 'breakfast') {
-      this.guestBookingStore.validateField(field, true)
-    },
-
-    reviewBooking() {
-      this.guestBookingStore.goToReview()
-    },
-
-    async confirmBooking() {
-      await this.guestBookingStore.submitBooking()
-    },
-
-    formatDate(dateStr: string): string {
-      return new Date(dateStr).toLocaleDateString('de-AT', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      })
-    }
+const periodLabel = computed(() => {
+  if (!bookingPeriodStore.startDate || !bookingPeriodStore.endDate) {
+    return ''
   }
+
+  return `${formatDate(bookingPeriodStore.startDate)} - ${formatDate(bookingPeriodStore.endDate)}`
+})
+
+const availabilityMessage = computed(() => {
+  if (roomError.value) {
+    return roomError.value
+  }
+
+  if (!bookingPeriodStore.isValidPeriod) {
+    return 'Please select a valid booking period before continuing.'
+  }
+
+  return 'The selected room could not be loaded.'
+})
+
+onMounted(async () => {
+  resetBookingFlow()
+  await loadRoom()
+})
+
+function resetBookingFlow() {
+  resetBookingForm()
+  step.value = BOOKING_STEP.FORM
+  confirmation.value = null
+}
+
+async function loadRoom() {
+  roomLoading.value = true
+  roomError.value = ''
+
+  try {
+    const id = Number(route.params.id)
+    const loadedRoom = await roomService.getRoomTypeById(id)
+
+    if (!loadedRoom) {
+      room.value = null
+      roomError.value = 'The selected room could not be loaded.'
+      return
+    }
+
+    room.value = toBookingRoomContext(loadedRoom)
+  } catch {
+    room.value = null
+    roomError.value = 'The selected room could not be loaded. Please go back and try again.'
+  } finally {
+    roomLoading.value = false
+  }
+}
+
+function reviewBooking() {
+  submitError.value = ''
+
+  if (validateForm()) {
+    step.value = BOOKING_STEP.REVIEW
+  }
+}
+
+function goToForm() {
+  step.value = BOOKING_STEP.FORM
+}
+
+function isBookingReady() {
+  if (!room.value || !bookingPeriodStore.startDate || !bookingPeriodStore.endDate) {
+    submitError.value = 'Room and booking period are required before submitting.'
+    return false
+  }
+
+  if (!bookingPeriodStore.isValidPeriod) {
+    submitError.value = 'Please select a valid booking period before submitting.'
+    return false
+  }
+
+  return true
+}
+
+async function confirmBooking() {
+  if (!isBookingReady() || !room.value || !bookingPeriodStore.startDate || !bookingPeriodStore.endDate) {
+    return false
+  }
+
+  const response = await submitBooking(room.value, {
+    checkIn: bookingPeriodStore.startDate,
+    checkOut: bookingPeriodStore.endDate
+  })
+
+  if (!response) {
+    step.value = BOOKING_STEP.FORM
+    return false
+  }
+
+  confirmation.value = toBookingConfirmation(response)
+  step.value = BOOKING_STEP.CONFIRMATION
+  return true
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('de-AT', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
 }
 </script>
 

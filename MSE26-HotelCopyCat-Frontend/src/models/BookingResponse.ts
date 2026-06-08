@@ -1,4 +1,4 @@
-import {RoomExtra} from "@/models/Room";
+import type { RoomExtra } from '@/models/Room'
 
 export interface BookingResponse {
   id: number

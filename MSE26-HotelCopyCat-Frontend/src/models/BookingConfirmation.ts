@@ -1,4 +1,4 @@
-import {BookingResponse} from "@/models/BookingResponse";
+import type { BookingResponse } from '@/models/BookingResponse'
 
 export interface BookingConfirmation {
   title: string
