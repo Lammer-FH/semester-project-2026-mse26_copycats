@@ -244,10 +244,11 @@ export const useGuestBookingStore = defineStore('guestBooking', {
     createConfirmationCardModel(_response: BookingResponse): BookingConfirmation {
       // TODO update for U5
       return {
-        title: 'Booking submitted',
+        title: 'Booking confirmed',
         message: 'Your booking request was submitted successfully.',
         actionLabel: 'Back to rooms',
-        actionRoute: '/rooms'
+        actionRoute: '/rooms',
+        booking: _response
       }
     },
 

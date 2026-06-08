@@ -28,6 +28,8 @@ export default {
         id: response.data.id,
         roomTypeId: response.data.roomType.id,
         roomName: response.data.roomType.name,
+        roomDescription: response.data.roomType.description,
+        roomExtras: response.data.roomType.extras,
         checkIn: response.data.checkIn,
         checkOut: response.data.checkOut,
         firstName: response.data.firstName,
