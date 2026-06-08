@@ -2,7 +2,7 @@
   <StatusCard
     class="booking-confirmation-card"
     variant="success"
-    subtitle="Booking confirmed"
+    subtitle="Booking overview"
     :title="confirmation.title"
     :message="confirmation.message"
     :action-label="confirmation.actionLabel"
@@ -43,8 +43,8 @@
         </p>
 
         <h1>Contact</h1>
-        <p><strong>Email: </strong>helpcopycathotel@mail.com</p>
-        <p><strong>Support-Hotline: </strong>+00 (0) 0000000</p>
+        <p><strong>Email: </strong>{{ contactInfo.supportEmail }}</p>
+        <p><strong>Support-Hotline: </strong>{{ contactInfo.phone }}</p>
       </div>
     </template>
   </StatusCard>
@@ -54,11 +54,17 @@
 import { PropType } from 'vue'
 import type { BookingConfirmation } from '@/models/BookingConfirmation'
 import { getRoomImageUrl } from '@/models/Room'
+import { HOTEL_CONTACT } from '@/constants/hotelContact'
 import StatusCard from '@/components/common/StatusCard.vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 
 export default {
   name: 'BookingConfirmationCard',
+  computed: {
+    contactInfo(): typeof HOTEL_CONTACT {
+      return HOTEL_CONTACT
+    }
+  },
 
   components: {
     RoomExtrasList,
@@ -78,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   margin-top: 1rem;
   line-height: 1.6;
@@ -111,30 +117,30 @@ export default {
     margin: 12mm;
   }
 
-  html,
-  body {
+  :global(html),
+  :global(body) {
     margin: 0 !important;
     padding: 0 !important;
     background: #fff !important;
   }
 
-  .booking-page-shell ion-header,
-  .booking-page-shell .site-footer {
+  :global(.booking-page-shell ion-header),
+  :global(.booking-page-shell .site-footer) {
     display: none !important;
   }
 
-  .booking-page-shell ion-content {
+  :global(.booking-page-shell ion-content) {
     --overflow: visible;
     height: auto;
   }
 
-  .booking-page-shell ion-content::part(scroll) {
+  :global(.booking-page-shell ion-content::part(scroll)) {
     overflow: visible !important;
   }
 
-  .booking-page-shell ion-grid,
-  .booking-page-shell .content-container,
-  .booking-page-shell .booking-page {
+  :global(.booking-page-shell ion-grid),
+  :global(.booking-page-shell .content-container),
+  :global(.booking-page-shell .booking-page) {
     margin: 0 !important;
     padding: 0 !important;
     max-width: none !important;
@@ -150,7 +156,7 @@ export default {
     print-color-adjust: exact;
   }
 
-  .booking-confirmation-card .action-button {
+  .booking-confirmation-card :deep(.action-button) {
     display: none !important;
   }
 
@@ -179,11 +185,11 @@ export default {
     gap: 6px;
   }
 
-  .booking-confirmation-card .extra-item {
+  .booking-confirmation-card :deep(.extra-item) {
     gap: 4px;
   }
 
-  .booking-confirmation-card .extra-icon {
+  .booking-confirmation-card :deep(.extra-icon) {
     width: 16px;
     height: 16px;
     filter: none !important;

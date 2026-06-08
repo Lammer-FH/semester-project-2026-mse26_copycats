@@ -18,6 +18,8 @@
 </template>
 
 <script lang="ts">
+import { HOTEL_CONTACT } from '@/constants/hotelContact'
+
 export default {
   name: 'SiteFooter',
 
@@ -28,15 +30,15 @@ export default {
     },
     address: {
       type: String,
-      default: 'Palmoria Bay Street 1/2/3'
+      default: HOTEL_CONTACT.address
     },
     email: {
       type: String,
-      default: 'copycathotel@mail.com'
+      default: HOTEL_CONTACT.email
     },
     phone: {
       type: String,
-      default: '+00 (0) 0000000'
+      default: HOTEL_CONTACT.phone
     }
   },
 
