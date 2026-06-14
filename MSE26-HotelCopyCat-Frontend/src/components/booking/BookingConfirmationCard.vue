@@ -57,6 +57,10 @@ import { getRoomImageUrl } from '@/models/Room'
 import { HOTEL_CONTACT } from '@/constants/hotelContact'
 import StatusCard from '@/components/booking/StatusCard.vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
+import {
+  IonCardSubtitle,
+  IonCardTitle
+} from '@ionic/vue'
 
 export default {
   name: 'BookingConfirmationCard',
@@ -67,6 +71,8 @@ export default {
   },
 
   components: {
+    IonCardSubtitle,
+    IonCardTitle,
     RoomExtrasList,
     StatusCard
   },

@@ -58,6 +58,7 @@ export default {
 
   components: {
     PageLayout,
+    PageContentContainer,
     IonRow,
     IonCol,
     IonSpinner,
