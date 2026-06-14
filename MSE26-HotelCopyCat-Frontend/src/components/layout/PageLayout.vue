@@ -18,7 +18,7 @@
 <script lang="ts">
 import {IonPage, IonContent, IonGrid} from '@ionic/vue'
 import NavBar from '@/components/navigation/NavBar.vue'
-import SiteFooter from '@/components/common/footer.vue'
+import SiteFooter from '@/components/layout/footer.vue'
 import PageContentContainer from '@/components/layout/PageContentContainer.vue'
 
 export default {

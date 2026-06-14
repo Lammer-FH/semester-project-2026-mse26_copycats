@@ -55,7 +55,7 @@ import { PropType } from 'vue'
 import type { BookingConfirmation } from '@/models/BookingConfirmation'
 import { getRoomImageUrl } from '@/models/Room'
 import { HOTEL_CONTACT } from '@/constants/hotelContact'
-import StatusCard from '@/components/common/StatusCard.vue'
+import StatusCard from '@/components/booking/StatusCard.vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 
 export default {

@@ -35,7 +35,7 @@ import {
   IonCardTitle
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
-import AvailabilityBadge from '@/components/common/AvailabilityBadge.vue'
+import AvailabilityBadge from '@/components/room/AvailabilityBadge.vue'
 
 import type { Room } from '@/models/Room'
 import { getRoomImageUrl } from '@/models/Room'

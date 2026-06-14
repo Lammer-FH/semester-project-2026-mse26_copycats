@@ -53,6 +53,6 @@
 <script setup lang="ts">
 import {IonRow} from '@ionic/vue'
 import PageLayout from '@/components/layout/PageLayout.vue'
-import BannerSection from '@/components/common/banner.vue'
-import Section from '@/components/common/section.vue'
+import BannerSection from '@/components/layout/banner.vue'
+import Section from '@/components/layout/section.vue'
 </script>
