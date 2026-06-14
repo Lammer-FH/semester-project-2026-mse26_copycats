@@ -1,10 +1,10 @@
 # AI Usage
 
-## Filler Data for About Us
+## Filler Data
 
 GPT-5.3-mini
 
-- This is an assignment; we are team copycats and we're making a hotel website in vue with ionic; currently we're
+- This is an assignment; we are team copycats, and we're making a hotel website in vue with ionic; currently we're
   working on a home page and an about us page; please create some filler text that we can use for our page and feel free
   to think of an interesting backstory for the hotel
 - (Insert current homepage) Generate at least two text sections for this Homepage; make sure the content does not
@@ -13,19 +13,21 @@ GPT-5.3-mini
 - (Insert current about page) This is the About Page, please add sections to this as well and rewrite the current
   content to match the theme.
 
-## Fix small Dark Mode issue
+## Fix small issue
 
 GPT-5.3-mini
 
 - (pasted contents of booking components); Which lines define the color of UI elements, one of them causes an issue in
   dark mode.
+- (paste console warning) Where does this error originate from.
+- Implement the blur element function in a central location (e.g. router/index).
 
 ## Some UI Topics
 
 GPT-5.3-mini
 
 - The project currently uses a pagelayout component with a slot that holds the content of the views:(insert component)if
-  I want to style the the page (e.g. centre content, add space between between content and screenborder) is it best
+  I want to style the page (e.g. center content, add space between content and screenborder) is it best
   practice to do that in the pagelayout component?
 - Is there a way to separate the hero/banner element from the page styling while keeping pagelayout universal for all
   pages? -> multiple slots
@@ -49,3 +51,5 @@ GPT-5.4-Mini (Codex)
 - Currently the email copycathotel@mail.com is being used in the contact section of the confirmation card, the footer
   and imprint; Please create a referencable variable for contact information and change the hard coded strings to the
   new variable in the affected sections; use best practices.
+- Add an openstreetmap for the directions part of the confirmation page; feel free to generate a location for our
+  fictional hotel address; for hard coded coordinates please use ./constants/hotelContacts.ts

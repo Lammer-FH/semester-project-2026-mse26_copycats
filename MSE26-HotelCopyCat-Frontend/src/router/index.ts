@@ -7,6 +7,18 @@ import BookingPage from '@/views/BookingPage.vue'
 import AboutPage from '@/views/AboutPage.vue';
 import ImprintPage from '@/views/ImprintPage.vue';
 
+function blurActiveElement() {
+  if (typeof document === 'undefined') {
+    return
+  }
+
+  const activeElement = document.activeElement
+
+  if (activeElement instanceof HTMLElement) {
+    activeElement.blur()
+  }
+}
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -47,6 +59,10 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
+})
+
+router.beforeEach(() => {
+  blurActiveElement()
 })
 
 export default router

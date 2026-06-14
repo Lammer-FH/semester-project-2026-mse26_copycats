@@ -31,7 +31,7 @@
               <ion-spinner v-if="availabilityLoading" name="crescent"/>
               <template v-else-if="availability !== null">
                 <AvailabilityBadge :available="availability"/>
-                <ion-button :disabled="!availability" expand="block" class="book-button" @click="goToBooking">
+                <ion-button :disabled="!availability" expand="block" class="book-button" @click="goToBooking()">
                   Book now
                 </ion-button>
               </template>
@@ -80,8 +80,8 @@ import {
 } from '@ionic/vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
 import PageLayout from '@/components/layout/PageLayout.vue'
-import AvailabilityBadge from '@/components/common/AvailabilityBadge.vue'
-import StatusCard from '@/components/common/StatusCard.vue'
+import AvailabilityBadge from '@/components/room/AvailabilityBadge.vue'
+import StatusCard from '@/components/booking/StatusCard.vue'
 import roomService from '@/services/roomService'
 import type {Room} from '@/models/Room'
 import {getRoomImageUrl} from '@/models/Room'
@@ -157,7 +157,6 @@ export default {
       if (!this.room || !this.availability) {
         return
       }
-
       this.$router.push({name: 'Booking', params: {id: this.room.id}})
     },
 

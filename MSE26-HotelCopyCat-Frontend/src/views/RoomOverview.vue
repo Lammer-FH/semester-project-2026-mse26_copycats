@@ -41,7 +41,7 @@ import PageLayout from '@/components/layout/PageLayout.vue'
 import PageContentContainer from '@/components/layout/PageContentContainer.vue'
 import RoomCard from '@/components/room/RoomCard.vue'
 import DateRangePicker from '@/components/date/DateRangePicker.vue'
-import PaginationControls from '@/components/common/PaginationControls.vue'
+import PaginationControls from '@/components/navigation/PaginationControls.vue'
 import roomService from '@/services/roomService'
 import {useBookingPeriodStore} from '@/stores/useBookingPeriodStore'
 import {
@@ -58,6 +58,7 @@ export default {
 
   components: {
     PageLayout,
+    PageContentContainer,
     IonRow,
     IonCol,
     IonSpinner,

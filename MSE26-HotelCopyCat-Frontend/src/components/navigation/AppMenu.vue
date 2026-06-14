@@ -50,6 +50,7 @@ import {
   IonTitle,
   IonContent,
   IonList,
-  IonItem
+  IonItem,
+  IonMenuToggle
 } from '@ionic/vue'
 </script>

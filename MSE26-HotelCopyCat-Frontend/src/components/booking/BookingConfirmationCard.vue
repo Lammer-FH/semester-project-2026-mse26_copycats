@@ -37,6 +37,14 @@
           CopyCats Hotel is located at Palmoria Bay Street 1/2/3, easily accessible via public transport.
         </p>
 
+        <iframe
+            class="hotel-map"
+            title="CopyCats Hotel location"
+            :src="hotelMapUrl"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+
         <p>
           Take Metro Line 2 towards Palmoria Bay Central and exit at "Palmoria Bay Waterfront".
           From there, it's a 5-minute walk straight down Palmoria Bay Street to the hotel entrance.
@@ -55,18 +63,34 @@ import { PropType } from 'vue'
 import type { BookingConfirmation } from '@/models/BookingConfirmation'
 import { getRoomImageUrl } from '@/models/Room'
 import { HOTEL_CONTACT } from '@/constants/hotelContact'
-import StatusCard from '@/components/common/StatusCard.vue'
+import StatusCard from '@/components/booking/StatusCard.vue'
 import RoomExtrasList from '@/components/room/RoomExtrasList.vue'
+import {
+  IonCardSubtitle,
+  IonCardTitle
+} from '@ionic/vue'
 
 export default {
   name: 'BookingConfirmationCard',
   computed: {
     contactInfo(): typeof HOTEL_CONTACT {
       return HOTEL_CONTACT
+    },
+    hotelMapUrl(): string {
+      const { latitude, longitude } = HOTEL_CONTACT
+      const delta = 0.005
+      const left = longitude - delta
+      const right = longitude + delta
+      const top = latitude + delta
+      const bottom = latitude - delta
+
+      return `https://www.openstreetmap.org/export/embed.html?bbox=${left}%2C${bottom}%2C${right}%2C${top}&layer=mapnik&marker=${latitude}%2C${longitude}`
     }
   },
 
   components: {
+    IonCardSubtitle,
+    IonCardTitle,
     RoomExtrasList,
     StatusCard
   },
@@ -109,6 +133,14 @@ export default {
   max-height: 40rem;
   object-fit: cover;
   border-radius: 14px;
+}
+
+.hotel-map {
+  width: 100%;
+  min-height: 18rem;
+  border: 0;
+  border-radius: 14px;
+  margin: 0.5rem 0 1rem;
 }
 
 @media print {

@@ -18,6 +18,6 @@
 
 <script setup lang="ts">
 import PageLayout from '@/components/layout/PageLayout.vue'
-import Section from '@/components/common/section.vue'
+import Section from '@/components/layout/section.vue'
 import { HOTEL_CONTACT } from '@/constants/hotelContact'
 </script>

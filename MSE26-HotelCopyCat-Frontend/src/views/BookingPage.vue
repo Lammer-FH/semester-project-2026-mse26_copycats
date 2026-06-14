@@ -121,7 +121,7 @@ import BookingSummaryCard from '@/components/booking/BookingSummaryCard.vue'
 import BookingGuestForm from '@/components/booking/BookingGuestForm.vue'
 import BookingReviewCard from '@/components/booking/BookingReviewCard.vue'
 import BookingConfirmationCard from '@/components/booking/BookingConfirmationCard.vue'
-import StatusCard from '@/components/common/StatusCard.vue'
+import StatusCard from '@/components/booking/StatusCard.vue'
 import PageLayout from '@/components/layout/PageLayout.vue'
 
 export default {
